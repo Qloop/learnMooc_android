@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/mr_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:paddingBottom="8dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="8dp"
+        android:textColor="#b1b1b1" >
+    </TextView>
+
+</LinearLayout><!-- From: file:/E:/CodePath/learnmooc-android/libraries/sinavideo_playersdk/res/layout/dlna_device_list_item.xml --><!-- From: file:/E:/CodePath/learnmooc-android/libraries/sinavideo_playersdk/build/intermediates/bundles/debug/res/layout/dlna_device_list_item.xml -->

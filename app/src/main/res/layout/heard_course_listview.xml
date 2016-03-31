@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.upc.learnmooc.view.TopCourseViewPager
+            android:id="@+id/vp_top_course"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:flipInterval="30"
+            android:persistentDrawingCache="animation"/>
+
+        <com.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/top_course_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/vp_top_course"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            app:fillColor="#56abe4"
+            app:pageColor="#fff"
+            app:radius="3dp"
+            app:strokeWidth="0dp"
+            />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/expectence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:onClick="ToExpert"
+            android:id="@+id/laboratory"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/laboratory"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="实验室"
+                android:textColor="@color/main_course_word_color"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/layout_divider_color"/>
+
+        <LinearLayout
+            android:id="@+id/skill_tree"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:descendantFocusability="blocksDescendants"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/skill_tree"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="技能树"
+                android:textColor="@color/main_course_word_color"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/layout_divider_color"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:text="课程列表"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+</LinearLayout>

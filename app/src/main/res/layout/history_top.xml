@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/top_bar_color"
+    android:layout_height="56dp"
+    android:layout_width="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_history"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:onClick="ToCourseMain"
+        android:padding="16dp"
+        android:src="@drawable/back"/>
+
+    <TextView
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/iv_history"
+        android:layout_toRightOf="@+id/iv_history"
+        android:layout_width="wrap_content"
+        android:onClick="TurnToLogin"
+        android:text="最近学习"
+        android:textColor="@color/title_word_color"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/iv_course_history"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="wrap_content"
+        android:onClick="ClearAll"
+        android:padding="16dp"
+        android:clickable="true"
+        android:text="全部清空"
+        android:textColor="@color/title_word_color"
+        android:textSize="16sp"/>
+</RelativeLayout>

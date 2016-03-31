@@ -1,0 +1,1 @@
+include ':app',':libraries:sweet-alert-dialog',':libraries:ViewPagerIndicator',':libraries:sinavideo_playersdk',':libraries:sinavideo_playercore'

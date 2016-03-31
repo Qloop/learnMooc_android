@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="90"
+                android:startColor="#6E6E6E"
+                android:centerColor="#0DBBBBBB"
+                android:endColor="#05BBBBBB"/>
+        </shape>
+    </item>
+    <!--<solid android:color="#CABBBBBB"/>-->
+
+    <item
+        android:top="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+        </shape>
+    </item>
+</layer-list>
+    <!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:shape="rectangle">-->
+    <!--<item>-->
+    <!--<shape>-->
+    <!--&lt;!&ndash; set the shadow color here &ndash;&gt;-->
+    <!--<stroke-->
+    <!--android:width="2dp"-->
+    <!--android:color="#7000"/>-->
+
+    <!--&lt;!&ndash; setting the thickness of shadow (positive value will give shadow on that side) &ndash;&gt;-->
+
+    <!--<padding-->
+    <!--android:top="-2dp"/>-->
+
+    <!--</shape>-->
+    <!--</item>-->
+
+    <!--&lt;!&ndash; Background &ndash;&gt;-->
+
+    <!--<item>-->
+    <!--<shape>-->
+    <!--<solid android:color="#fff"/>-->
+    <!--</shape>-->
+    <!--</item>-->
+    <!--</layer-list>-->

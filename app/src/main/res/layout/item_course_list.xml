@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/iv_course_img"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@android:color/darker_gray"
+            android:padding="1dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/course_list_default"/>
+
+        <TextView
+            android:id="@+id/tv_course_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/iv_course_img"
+            android:layout_toRightOf="@+id/iv_course_img"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="HTML+CSS3实现春节贺卡HTML+CSS3实现春节贺卡
+            HTML+CSS3实现春节贺卡HTML+CSS3实现春节贺卡HTML+CSS3实现春节贺卡HTML+CSS3实现春节贺卡HTML+CSS3实现春节贺卡"
+            android:textColor="@color/main_course_word_color"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/iv_learner_number_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_course_img"
+            android:layout_alignLeft="@+id/tv_course_description"
+            android:layout_toEndOf="@+id/iv_course_img"
+            android:layout_toRightOf="@+id/iv_course_img"
+            android:padding="2dp"
+            android:src="@drawable/learner_number"/>
+
+        <TextView
+            android:id="@+id/tv_learner_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_course_img"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
+            android:layout_toEndOf="@+id/iv_learner_number_img"
+            android:layout_toRightOf="@+id/iv_learner_number_img"
+            android:text="4010"
+            android:textColor="@color/word_normal_color"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/tv_update_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_learner_number_img"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:text="2016-02-13"
+            android:textColor="@color/word_normal_color"
+            android:textSize="13sp"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/layout_divider_color"/>
+</LinearLayout>

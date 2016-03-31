@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#fff</color>
+    <color name="colorBule">#33ccff</color>
+    <color name="update_background_color">#fff</color>
+    <color name="title_word_color">#fff</color>
+    <color name="register_find_pwd">#56abe4</color>
+    <color name="login_clause">#56abe4</color>
+    <color name="status_color">#56abe4</color>
+    <color name="apsect_status_color">#474947</color>
+    <color name="word_color">#CCCCCC</color>
+    <color name="word_normal_color">#CCCCCC</color>
+    <color name="word_pressed_color">#56abe4</color>
+    <color name="course_title_color">#56abe4</color>
+    <color name="main_course_word_color">#000000</color>
+    <color name="history_course_name_color">#363636</color>
+    <color name="layout_divider_color">#CCCCCC</color>
+    <color name="top_bar_color">#56abe4</color>
+    <color name="mine_bg_color">#474947</color>
+    <color name="mine_bg_word_color">#84817F</color>
+    <color name="test">#A6A6A6</color>
+    <color name="normal_community_word">#89ffffff</color>
+    <color name="video_word_normal_color">#84817F</color>
+    <color name="video_word_foused_color">#56abe4</color>
+    <color name="experiment_statusbar_color">#89000000</color>
+</resources>

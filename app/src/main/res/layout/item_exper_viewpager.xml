@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/expert_item_bg_shape">
+
+    <!-- 设置参照物 -->
+    <View
+        android:id="@+id/strut"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerVertical="true"/>
+
+    <com.upc.learnmooc.view.RoundImageView
+        android:id="@+id/iv_title_pic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/strut"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/exper_default"
+        app:type="round"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/strut"
+        android:layout_below="@+id/iv_title_pic"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:paddingTop="45dp">
+
+        <TextView
+            android:id="@+id/tv_exper_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="end"
+            android:paddingBottom="30dp"
+            android:singleLine="true"
+            android:text="Android布局实验"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:typeface="sans"/>
+
+        <View
+            android:id="@+id/v_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tv_exper_name"
+            android:background="#a000"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v_line"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="60dp">
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="388"
+                android:textColor="#a000"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tv_string"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="参与试验"
+                android:textColor="#a000"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <!--<com.hb.views.PinnedSectionListView-->
+    <!--android:id="@+id/pslv_chapter"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:divider="@null"-->
+    <!--android:footerDividersEnabled="false"-->
+    <!--android:headerDividersEnabled="false"-->
+    <!--/>-->
+    <ExpandableListView
+        android:id="@+id/elv_chapter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:scrollbars="none"/>
+</LinearLayout>

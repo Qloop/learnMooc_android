@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/rl_top"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@color/top_bar_color">
+
+    <TextView
+        android:id="@+id/tv_article"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="文章"
+        android:textColor="@color/title_word_color"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/tv_rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/tv_article"
+        android:layout_toRightOf="@+id/tv_article"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="排位"
+        android:textColor="@color/title_word_color"
+        android:textSize="20sp"/>
+
+    <View
+        android:id="@+id/v_indictor_line"
+        android:layout_width="50dp"
+        android:layout_height="3dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="19dp"
+        android:layout_marginStart="19dp"
+        android:background="#fff"/>
+
+</RelativeLayout>

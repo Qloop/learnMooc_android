@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/colorWhite"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_chapter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="Chapter"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="章节"
+            android:textColor="@color/video_word_foused_color"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tv_comment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="Comment"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="评论"
+            android:textColor="@color/video_word_normal_color"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tv_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="Detail"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="详情"
+            android:textColor="@color/video_word_normal_color"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/v_indictor_line"
+        android:layout_width="45dp"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="43dp"
+        android:layout_marginStart="43dp"
+        android:background="#56abe4"/>
+
+</RelativeLayout>

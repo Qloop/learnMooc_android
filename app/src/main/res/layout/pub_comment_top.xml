@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@color/top_bar_color">
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:onClick="Back"
+        android:padding="16dp"
+        android:src="@drawable/ic_dismiss"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/iv_back"
+        android:layout_toRightOf="@+id/iv_back"
+        android:onClick="TurnToLogin"
+        android:text="写评论"
+        android:textColor="@color/title_word_color"
+        android:textSize="16sp"/>
+
+
+    <TextView
+        android:id="@+id/iv_course_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:onClick="PublishComment"
+        android:padding="16dp"
+        android:text="发布"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"/>
+</RelativeLayout>

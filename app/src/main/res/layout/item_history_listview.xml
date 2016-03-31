@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite">
+
+    <View
+        android:id="@+id/v_view1"
+        android:layout_width="1dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginStart="100dp"
+        android:background="#A6A6A6"/>
+
+    <ImageView
+        android:id="@+id/iv_point"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_below="@+id/v_view1"
+        android:layout_marginLeft="93dp"
+        android:layout_marginStart="93dp"
+        android:src="@drawable/timeline_point"/>
+
+    <LinearLayout
+        android:layout_below="@+id/iv_point"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_blank"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <!--<TextView-->
+                <!--android:layout_width="1dp"-->
+                <!--android:layout_height="1dp"/>-->
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/v_view2"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="100dp"
+            android:layout_marginStart="100dp"
+            android:src="@color/test"/>
+    </LinearLayout>
+
+
+    <com.upc.learnmooc.view.MarqueeTextView
+        android:id="@+id/tv_time"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/v_view1"
+        android:layout_alignRight="@+id/v_view1"
+        android:layout_alignTop="@+id/iv_point"
+        android:layout_marginEnd="19dp"
+        android:layout_marginRight="19dp"
+        android:clickable="true"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text="12月29日1212121221122111211"
+        android:textColor="@color/word_pressed_color"
+        android:textSize="14sp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_point"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="-20dp"
+        android:layout_toEndOf="@+id/iv_point"
+        android:layout_toRightOf="@+id/iv_point"
+        android:background="@drawable/timeline_content"
+        android:orientation="vertical">
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

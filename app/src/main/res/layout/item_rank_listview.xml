@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
+
+    <FrameLayout
+        android:id="@+id/fl_heard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/first"/>
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tv_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+    <TextView
+        android:textSize="14sp"
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="left"
+        android:singleLine="true"
+        android:maxLength="10"
+        android:layout_toRightOf="@+id/fl_heard"
+        android:layout_marginLeft="20dp"
+        android:text="漫步"/>
+
+    <TextView
+        android:textSize="14sp"
+        android:id="@+id/tv_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:singleLine="true"
+        android:gravity="left"
+        android:layout_alignParentRight="true"
+        android:paddingRight="50dp"
+        android:text="1000"/>
+</RelativeLayout>
