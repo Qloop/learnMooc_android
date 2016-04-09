@@ -5,7 +5,7 @@
                 android:background="@color/top_bar_color">
 
     <ImageView
-        android:id="@+id/iv_history"
+        android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -20,15 +20,15 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
-        android:layout_toEndOf="@+id/iv_history"
-        android:layout_toRightOf="@+id/iv_history"
+        android:layout_toEndOf="@+id/iv_back"
+        android:layout_toRightOf="@+id/iv_back"
         android:onClick="TurnToLogin"
         android:text="分类"
         android:textColor="@color/title_word_color"
         android:textSize="16sp"/>
 
     <ImageView
-        android:id="@+id/iv_course_history"
+        android:id="@+id/tv_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

@@ -180,17 +180,9 @@ public class CourseHistoryActivity extends BaseActivity {
 	}
 
 	/**
-	 * 返回前一页
-	 */
-	public void ToCourseMain(View view) {
-//		startActivity(new Intent(CourseHistoryActivity.this, MainActivity.class));
-		finish();
-	}
-
-	/**
 	 * 清空记录
 	 */
-	public void ClearAll(View view) {
-
-	}
+//	public void ClearAll(View view) {
+//
+//	}
 }

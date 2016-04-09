@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-  <com.upc.learnmooc.view.RefreshListView
-      android:cacheColorHint="@android:color/transparent"
-      android:id="@+id/lv_artilce"
-      android:divider="@null"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
+    <com.upc.learnmooc.view.RefreshListView
+        android:id="@+id/lv_artilce"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"/>
 
 </LinearLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <com.upc.learnmooc.view.TopBarView
+        android:id="@+id/topbar"
+        app:topIcon="@drawable/ic_dismiss"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:topSubtitle="保存"
+        app:topTitle="记笔记"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/et_note"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/colorWhite"
+            android:gravity="left"
+            android:hint="请输入笔记内容"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_word_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/et_note"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:text="1000"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+
+</LinearLayout>

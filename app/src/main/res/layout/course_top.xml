@@ -5,7 +5,7 @@
     android:layout_width="match_parent">
 
     <ImageView
-        android:id="@+id/iv_history"
+        android:id="@+id/iv_back"
         android:layout_centerVertical="true"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -19,8 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
-        android:layout_toEndOf="@+id/iv_history"
-        android:layout_toRightOf="@+id/iv_history"
+        android:layout_toEndOf="@+id/iv_back"
+        android:layout_toRightOf="@+id/iv_back"
         android:layout_width="wrap_content"
         android:onClick="TurnToLogin"
         android:text="分类"
@@ -31,15 +31,15 @@
         android:id="@+id/iv_course_search"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@+id/iv_course_history"
-        android:layout_toStartOf="@+id/iv_course_history"
+        android:layout_toLeftOf="@+id/tv_subtitle"
+        android:layout_toStartOf="@+id/tv_subtitle"
         android:layout_width="wrap_content"
         android:onClick="ToSearchCourse"
         android:padding="16dp"
         android:src="@drawable/course_search"/>
 
     <ImageView
-        android:id="@+id/iv_course_history"
+        android:id="@+id/tv_subtitle"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_height="wrap_content"

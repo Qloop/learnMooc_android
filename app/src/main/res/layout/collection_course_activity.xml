@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:fitsSystemWindows="true"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <com.upc.learnmooc.view.TopBarView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:topTitle="我关注的课程"/>
+
+    <ListView
+        android:id="@+id/lv_collect_course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:scrollbars="none"/>
+
+</LinearLayout>

@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/colorWhite"
               android:fitsSystemWindows="true"
               android:orientation="vertical">
 
-    <include layout="@layout/history_top"/>
+    <com.upc.learnmooc.view.TopBarView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:topTitle="最近学习"/>
 
     <ListView
         android:id="@+id/lv_timeTree"

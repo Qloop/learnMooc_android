@@ -24,6 +24,8 @@ public class GlobalConstants {
 	public final static String GET_VIDEO_DETAILTINFO = "http://120.27.47.134/video/detailInfo.json";
 	public final static String GET_ASPECT_DATA = "http://120.27.47.134/aspect/aspectData.json";
 	public final static String GET_EXPERT_LIST = "http://120.27.47.134/expert/expertInfo.json";
+	public final static String GET_NOTE_LIST = "http://120.27.47.134/note/noteInfo.json";
+	public final static String GET_NOTE_DETAIL = "http://120.27.47.134/note/noteDetail.json";
 
 }
 

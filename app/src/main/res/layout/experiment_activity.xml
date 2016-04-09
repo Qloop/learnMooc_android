@@ -5,7 +5,7 @@
              android:layout_height="match_parent"
              android:orientation="vertical">
 
-    <com.upc.learnmooc.fragment.NoScrollViewPager
+    <com.upc.learnmooc.view.NoScrollViewPager
         android:id="@+id/vp_bg_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

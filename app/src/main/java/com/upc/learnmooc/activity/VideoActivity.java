@@ -1,7 +1,9 @@
 package com.upc.learnmooc.activity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,6 +37,7 @@ import com.upc.learnmooc.fragment.VideoCommentFragment;
 import com.upc.learnmooc.fragment.VideoDetailFragment;
 import com.upc.learnmooc.global.GlobalConstants;
 import com.upc.learnmooc.utils.ToastUtils;
+import com.upc.learnmooc.utils.UserInfoCacheUtils;
 import com.upc.learnmooc.view.CommunityViewPager;
 
 import java.util.ArrayList;
@@ -59,6 +63,8 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 	private String mUrl = GlobalConstants.GET_VIDEO;
 	private CourseContent courseContent;
 	private TextView tvCourseName;
+	private int courseId;
+	private ImageView ivCollection;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,13 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 
 		initViews();
 		initData();
+		setCollection(false);
+		ivCollection.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				setCollection(true);
+			}
+		});
 	}
 
 	public void initViews() {
@@ -76,6 +89,7 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 		tvComment = (TextView) findViewById(R.id.tv_comment);
 		tvDetail = (TextView) findViewById(R.id.tv_detail);
 		vIndictorLine = findViewById(R.id.v_indictor_line);
+		ivCollection = (ImageView) findViewById(R.id.iv_collection);
 
 		tvCourseName = (TextView) findViewById(R.id.tv_course_title);
 
@@ -165,12 +179,18 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 
 	public void initData() {
 		getDataFromServer();
+		Bundle extras = getIntent().getExtras();
+		courseId = extras.getInt("id");
 	}
 
 	private void getDataFromServer() {
 		HttpUtils httpUtils = new HttpUtils();
 		httpUtils.configCurrentHttpCacheExpiry(5000);
 		httpUtils.configTimeout(5000);
+
+		//get请求参数加 courseId
+//		RequestParams params = new RequestParams();
+//		params.addQueryStringParameter("id",courseId+"");
 
 		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, new RequestCallBack<String>() {
 			@Override
@@ -331,6 +351,48 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 		tvDetail.setTextColor(getResources().getColor(R.color.video_word_foused_color));
 
 		mViewPager.setCurrentItem(2);
+	}
+
+	/**
+	 * 课程收藏
+	 */
+	public void setCollection(boolean isClick) {
+		//文章的url  key:url  value:url
+		String article = UserInfoCacheUtils.getCache(courseId + "", VideoActivity.this);
+		System.out.println("文章地址 " + article);
+
+		if (isClick) {
+			//如果没有收藏这个文章  设置收藏 缓存 改变图标
+			if (article == null) {
+				UserInfoCacheUtils.setCache(courseId + "", courseId + "", VideoActivity.this);
+				ivCollection.setImageResource(R.drawable.has_collection);
+
+				Snackbar.make(ivCollection, "已收藏！^_^~~~", Snackbar.LENGTH_LONG)
+						.setAction("Action", null).show();
+				//数据库保存用户收藏的文章
+
+			} else {
+				System.out.println("文章 is " + article);
+				//如果已经收藏  取消收藏 清除缓存 改变图标
+				UserInfoCacheUtils.setCache(courseId + "", null, VideoActivity.this);
+				ivCollection.setImageResource(R.drawable.collection);
+				Snackbar.make(ivCollection, "取消收藏！T^T~~~", Snackbar.LENGTH_LONG)
+						.setAction("Action", null).show();
+
+				//数据库删除用户收藏的文章的记录
+			}
+		} else {
+			if (article == null) {
+				ivCollection.setImageResource(R.drawable.collection);
+			} else {
+				ivCollection.setImageResource(R.drawable.has_collection);
+			}
+		}
+
+	}
+
+	public void ToMarkerDown(View view){
+		startActivity(new Intent(VideoActivity.this,NoteActivity.class));
 	}
 
 }

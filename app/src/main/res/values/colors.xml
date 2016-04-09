@@ -10,7 +10,7 @@
     <color name="register_find_pwd">#56abe4</color>
     <color name="login_clause">#56abe4</color>
     <color name="status_color">#56abe4</color>
-    <color name="apsect_status_color">#474947</color>
+    <color name="apsect_status_color">#89000000</color>
     <color name="word_color">#CCCCCC</color>
     <color name="word_normal_color">#CCCCCC</color>
     <color name="word_pressed_color">#56abe4</color>
@@ -26,4 +26,5 @@
     <color name="video_word_normal_color">#84817F</color>
     <color name="video_word_foused_color">#56abe4</color>
     <color name="experiment_statusbar_color">#89000000</color>
+    <color name="top_status_color">#26000000</color>
 </resources>

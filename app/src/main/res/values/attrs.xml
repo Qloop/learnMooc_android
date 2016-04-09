@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="TopBarView">
+        <attr name="topTitle" format="string"/>
+        <attr name="topSubtitle" format="string"/>
+        <attr name="topIcon" format="reference"/>
+    </declare-styleable>
+
     <declare-styleable name="CircleImageView">
         <attr name="width" format="dimension"/>
         <attr name="borderWith" format="dimension"/>

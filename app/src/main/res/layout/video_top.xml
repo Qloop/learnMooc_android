@@ -23,7 +23,7 @@
         android:layout_toRightOf="@+id/iv_course_back"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="Scala程序设计——基础篇 "
+        android:text="欢迎使用慕课Ime "
         android:textColor="@color/colorWhite"/>
 
     <ImageView
@@ -31,28 +31,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/tv_course_title"
-        android:layout_toEndOf="@+id/tv_course_title"
-        android:layout_marginLeft="40dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginRight="19dp"
+        android:layout_toLeftOf="@+id/iv_video_download"
+        android:layout_toStartOf="@+id/iv_video_download"
         android:background="@drawable/collection"/>
 
     <ImageView
-        android:id="@+id/iv_article_share"
+        android:id="@+id/iv_video_download"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:onClick="ArticleShare"
         android:layout_toLeftOf="@+id/iv_note"
         android:layout_toStartOf="@+id/iv_note"
+        android:onClick="ArticleShare"
+        android:padding="5dp"
         android:src="@drawable/download"/>
 
     <ImageView
         android:id="@+id/iv_note"
-        android:src="@drawable/note"
-        android:padding="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:onClick="ToMarkerDown"
+        android:src="@drawable/note"/>
 </RelativeLayout>

@@ -9,7 +9,9 @@ import android.widget.SimpleAdapter;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.upc.learnmooc.R;
+import com.upc.learnmooc.activity.CollectedCourseActivity;
 import com.upc.learnmooc.activity.CourseHistoryActivity;
+import com.upc.learnmooc.activity.MineNoteActivity;
 import com.upc.learnmooc.activity.SelfArticleActivity;
 
 import java.util.ArrayList;
@@ -59,6 +61,7 @@ public class MineFragment extends BaseFragment {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				switch (position){
 					case FOURSED_COURSE:
+						startActivity(new Intent(mActivity, CollectedCourseActivity.class));
 						break;
 					case MY_PLAN:
 						break;
@@ -68,6 +71,7 @@ public class MineFragment extends BaseFragment {
 						startActivity(new Intent(mActivity, SelfArticleActivity.class));
 						break;
 					case MY_NOTE:
+						startActivity(new Intent(mActivity, MineNoteActivity.class));
 						break;
 					case STUDY_HISTORY:
 						startActivity(new Intent(mActivity, CourseHistoryActivity.class));

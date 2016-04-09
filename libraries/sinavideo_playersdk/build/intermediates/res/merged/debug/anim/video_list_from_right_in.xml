@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--从屏幕右边进入-->
-<translate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="350"
-    android:fromXDelta="100%p"
-    android:interpolator="@android:anim/accelerate_interpolator"
-    android:startOffset="0"
-    android:toXDelta="0%p" />
-<!-- From: file:/E:/CodePath/learnmooc-android/libraries/sinavideo_playersdk/res/anim/video_list_from_right_in.xml -->

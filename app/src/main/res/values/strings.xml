@@ -94,5 +94,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_self_article">SelfArticleActivity</string>
+    <string name="title_activity_self_article">我的文章</string>
 </resources>

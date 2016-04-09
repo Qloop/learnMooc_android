@@ -51,6 +51,10 @@
         <activity android:name=".activity.PubCommentActivity" />
         <activity android:name=".activity.SkillTreeActivity" />
         <activity android:name=".activity.ExperimentActivity" />
+        <activity android:name=".activity.CollectedCourseActivity" />
+        <activity android:name=".activity.NoteActivity" />
+        <activity android:name=".activity.MineNoteActivity" />
+        <activity android:name=".activity.NoteDetailActivity" />
         <activity
             android:name=".activity.VideoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />

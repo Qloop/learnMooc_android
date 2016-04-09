@@ -38,7 +38,7 @@ public class ArticleActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 //		setContentView(R.layout.article_acticity);
-		setContentView(R.layout.activity_self_article);
+		setContentView(R.layout.article_activity);
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
@@ -68,7 +68,7 @@ public class ArticleActivity extends AppCompatActivity {
 		mWebView = (WebView) findViewById(R.id.wb_article);
 		mProgressBar = (ProgressBar) findViewById(R.id.pb_progress);
 //		ivCollection = (ImageView) findViewById(R.id.iv_collection);
-		ivShare = (ImageView) findViewById(R.id.iv_article_share);
+//		ivShare = (ImageView) findViewById(R.id.iv_article_share);
 
 		url = getIntent().getStringExtra("url");
 
@@ -150,6 +150,8 @@ public class ArticleActivity extends AppCompatActivity {
 				//数据库删除用户收藏的文章的记录
 			}
 		} else {
+			if(article == null){
+
 				fab.setImageResource(R.drawable.collection);
 			} else {
 				fab.setImageResource(R.drawable.has_collection);
