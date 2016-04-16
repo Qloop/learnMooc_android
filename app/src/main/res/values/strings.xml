@@ -95,4 +95,75 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_self_article">我的文章</string>
+    <string name="title_activity_settings">设置</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="quit_login">退出登录</string>
+    <string name="about_me">关于我们</string>
+    <string name="update">版本更新</string>
+    <string name="suggestion">意见反馈</string>
+    <string name="pub_suggestion">提交</string>
+    <string name="about_us"> &#160;&#160;&#160; &#160;&#160;&#160;我们是一群来自中国石油大学的小伙伴,渴望用我们的能力来让更多的同学来快乐的学习\n&#160;&#160;&#160; &#160;&#160;&#160;这也是"慕课Ime"产生的初衷。我们更能理解同学们的需要,未来我们也将坚持下去\n&#160;&#160;&#160; &#160;&#160;&#160;如果你跟我们志同道合,欢迎你的加入!</string>
+    <string name="avatar">头像</string>
+    <string name="nickname">昵称</string>
+    <string name="mail">邮箱</string>
+    <string name="takePhoto">拍照</string>
+    <string name="changeAvatar">修改头像</string>
+    <string name="choseFromGallery">从相册选取</string>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 
 import com.lidroid.xutils.ViewUtils;
@@ -13,6 +14,7 @@ import com.upc.learnmooc.activity.CollectedCourseActivity;
 import com.upc.learnmooc.activity.CourseHistoryActivity;
 import com.upc.learnmooc.activity.MineNoteActivity;
 import com.upc.learnmooc.activity.SelfArticleActivity;
+import com.upc.learnmooc.activity.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +48,8 @@ public class MineFragment extends BaseFragment {
 
 	@ViewInject(R.id.gv_menu)
 	private GridView mGridView;
+	@ViewInject(R.id.iv_setting)
+	private ImageView ivSettings;
 
 	@Override
 	public View initViews() {
@@ -59,7 +63,7 @@ public class MineFragment extends BaseFragment {
 		mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				switch (position){
+				switch (position) {
 					case FOURSED_COURSE:
 						startActivity(new Intent(mActivity, CollectedCourseActivity.class));
 						break;
@@ -79,6 +83,12 @@ public class MineFragment extends BaseFragment {
 					default:
 						break;
 				}
+			}
+		});
+		ivSettings.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(mActivity, SettingsActivity.class));
 			}
 		});
 
@@ -109,4 +119,5 @@ public class MineFragment extends BaseFragment {
 		}
 		return listData;
 	}
+
 }

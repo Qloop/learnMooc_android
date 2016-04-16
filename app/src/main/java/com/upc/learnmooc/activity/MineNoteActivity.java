@@ -78,26 +78,26 @@ public class MineNoteActivity extends BaseActivity {
 		Gson gson = new Gson();
 		NoteInfo noteInfo = gson.fromJson(result, NoteInfo.class);
 		listCourse = noteInfo.listCourse;
-		if(listCourse != null){
+		if (listCourse != null) {
 			mListView.setAdapter(new ListViewAdapter());
 			mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					Intent intent = new Intent();
-					intent.putExtra("courseId",listCourse.get(position).getCourseId());
-					intent.setClass(MineNoteActivity.this,NoteDetailActivity.class);
+					intent.putExtra("courseId", listCourse.get(position).getCourseId());
+					intent.setClass(MineNoteActivity.this, NoteDetailActivity.class);
 					startActivity(intent);
 				}
 			});
 		}
 	}
 
-	class ListViewAdapter extends BaseAdapter{
+	class ListViewAdapter extends BaseAdapter {
 
 
 		private final BitmapUtils bitmapUtils;
 
-		public ListViewAdapter(){
+		public ListViewAdapter() {
 			bitmapUtils = new BitmapUtils(MineNoteActivity.this);
 			bitmapUtils.configDefaultLoadingImage(R.drawable.course_default_bg);
 		}
@@ -120,28 +120,28 @@ public class MineNoteActivity extends BaseActivity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder;
-			if(convertView == null){
-				convertView = View.inflate(MineNoteActivity.this,R.layout.item_note_listview,null);
+			if (convertView == null) {
+				convertView = View.inflate(MineNoteActivity.this, R.layout.item_note_listview, null);
 				holder = new ViewHolder();
 				holder.ivPic = (ImageView) convertView.findViewById(R.id.iv_pic);
 				holder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
 				holder.tvNum = (TextView) convertView.findViewById(R.id.tv_note_num);
 
 				convertView.setTag(holder);
-			}else {
+			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
 
 			NoteInfo.NoteData noteData = listCourse.get(position);
-			bitmapUtils.display(holder.ivPic,noteData.getThumbnailUrl());
+			bitmapUtils.display(holder.ivPic, noteData.getThumbnailUrl());
 			holder.tvName.setText(noteData.getCourseName());
-			holder.tvNum.setText(noteData.getNoteNum()+"");
+			holder.tvNum.setText(noteData.getNoteNum() + "");
 
 			return convertView;
 		}
 	}
 
-	static class ViewHolder{
+	static class ViewHolder {
 		public ImageView ivPic;
 		public TextView tvName;
 		public TextView tvNum;

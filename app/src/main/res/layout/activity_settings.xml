@@ -1,0 +1,108 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:id="@+id/settings_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff">
+
+        <LinearLayout
+            android:id="@+id/ll_setting"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:orientation="vertical">
+
+            <com.upc.learnmooc.view.TopBarView
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:topIcon="@drawable/toolbar_back"
+                app:topTitle="设置"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_userlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/seletor_bg_setting_item"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <com.upc.learnmooc.view.CircleImageView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/defaultimage"/>
+
+                <TextView
+                    android:id="@+id/tv_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/iv_avatar"
+                    android:layout_toRightOf="@+id/iv_avatar"
+                    android:padding="10dp"
+                    android:text="未登录"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:src="@drawable/triangle"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/iv_avatar"
+                    android:layout_marginTop="25dp"
+                    android:background="@color/layout_divider_color"/>
+            </RelativeLayout>
+
+            <com.upc.learnmooc.view.SettingsItemLayout
+                android:id="@+id/sil_suggestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:leftText="意见反馈"
+                app:leftTextSize="16sp"/>
+
+            <com.upc.learnmooc.view.SettingsItemLayout
+                android:id="@+id/sil_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:leftText="版本更新"
+                app:leftTextSize="16sp"/>
+
+            <com.upc.learnmooc.view.SettingsItemLayout
+                android:id="@+id/sil_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:leftText="关于我们"
+                app:leftTextSize="16sp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_btn_quit_login"
+                android:onClick="QuitLogin"
+                android:text="@string/quit_login"
+                android:textColor="@color/login_clause"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+    </FrameLayout>
+</LinearLayout>

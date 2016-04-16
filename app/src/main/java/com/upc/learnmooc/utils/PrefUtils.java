@@ -32,4 +32,10 @@ public class PrefUtils {
 				Context.MODE_PRIVATE);
 		sp.edit().putString(key, value).apply();
 	}
+
+	public static void ClearPreCache(Context ctx,String[] key){
+		for(int i =0;i<key.length;i++){
+			setBoolean(ctx,key[i],false);
+		}
+	}
 }

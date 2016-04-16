@@ -1,5 +1,7 @@
 package com.upc.learnmooc.domain;
 
+import java.util.ArrayList;
+
 /**
  * Created by Explorer on 2016/3/13.
  */

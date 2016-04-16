@@ -50,7 +50,7 @@ public class UserInfoCacheUtils {
 	 * 设置缓存
 	 */
 	public static void setCache(String key,String value,Context ctx){
-		setString(ctx,key,value);
+		setString(ctx, key, value);
 	}
 
 	/**
@@ -58,6 +58,15 @@ public class UserInfoCacheUtils {
 	 */
 	public static String getCache(String key,Context ctx){
 		return getString(ctx,key,null);
+	}
+
+	/**
+	 * 清空指定缓存信息
+	 */
+	public static void ClearCache(Context ctx,String[] key){
+		for(int i = 0;i < key.length;i++){
+			setString(ctx,key[i],null);
+		}
 	}
 
 }

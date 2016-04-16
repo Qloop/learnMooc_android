@@ -3,6 +3,7 @@ package com.upc.learnmooc.activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -40,6 +41,7 @@ import com.upc.learnmooc.utils.ToastUtils;
 import com.upc.learnmooc.utils.UserInfoCacheUtils;
 import com.upc.learnmooc.view.CommunityViewPager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -217,7 +219,7 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 			VDVideoInfo info = new VDVideoInfo();
 			info.mTitle = courseContent.getCourseName();
 //			info.mPlayUrl = "http://v.iask.com/v_play_ipad.php?vid=131386882&tags=videoapp_android";
-			info.mPlayUrl = courseContent.getVideoUrl();
+			info.mPlayUrl = courseContent.videoUrl.get(0).getUrl();
 			infoList.addVideoInfo(info);
 
 
@@ -357,19 +359,19 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 	 * 课程收藏
 	 */
 	public void setCollection(boolean isClick) {
-		//文章的url  key:url  value:url
+		//课程的url  key:url  value:url
 		String article = UserInfoCacheUtils.getCache(courseId + "", VideoActivity.this);
 		System.out.println("文章地址 " + article);
 
 		if (isClick) {
-			//如果没有收藏这个文章  设置收藏 缓存 改变图标
+			//如果没有收藏这个课程  设置收藏 缓存 改变图标
 			if (article == null) {
 				UserInfoCacheUtils.setCache(courseId + "", courseId + "", VideoActivity.this);
 				ivCollection.setImageResource(R.drawable.has_collection);
 
 				Snackbar.make(ivCollection, "已收藏！^_^~~~", Snackbar.LENGTH_LONG)
 						.setAction("Action", null).show();
-				//数据库保存用户收藏的文章
+				//数据库保存用户收藏的课程
 
 			} else {
 				System.out.println("文章 is " + article);
@@ -379,7 +381,7 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 				Snackbar.make(ivCollection, "取消收藏！T^T~~~", Snackbar.LENGTH_LONG)
 						.setAction("Action", null).show();
 
-				//数据库删除用户收藏的文章的记录
+				//数据库删除用户收藏的课程 的记录
 			}
 		} else {
 			if (article == null) {
@@ -391,8 +393,65 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 
 	}
 
-	public void ToMarkerDown(View view){
-		startActivity(new Intent(VideoActivity.this,NoteActivity.class));
+	public void ToMarkerDown(View view) {
+		startActivity(new Intent(VideoActivity.this, NoteActivity.class));
+	}
+
+	public void VideoDownLoad(View view) {
+		System.out.println("下载视频！！！！！！！");
+		if (courseContent != null) {
+			String target = null;
+
+			//如果有SD卡 则下载到SD卡中
+			if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+				target = Environment.getExternalStorageDirectory() + "/downloadVieo/" + mVDVideoView.getListInfo().getCurrInfo().mTitle;
+
+
+			} else {
+				//如果没有SD卡
+				target = Environment.getDataDirectory() + "/downloadVieo/" + mVDVideoView.getListInfo().getCurrInfo().mTitle;
+
+			}
+
+			int currentVideo = 0;
+			currentVideo = (int) mVDVideoView.getListInfo().getCurrInfo().mVideoPosition;
+			HttpUtils httpUtils = new HttpUtils();
+			httpUtils.download(courseContent.videoUrl.get(currentVideo).getUrl(), target, true, false,
+					new RequestCallBack<File>() {
+						@Override
+						public void onStart() {
+							if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+								ToastUtils.showToastLong(VideoActivity.this,"正在下载———" +
+										Environment.getExternalStorageDirectory() + "/downloadVieo/" + mVDVideoView.getListInfo().getCurrInfo().mTitle);
+
+
+							} else {
+								//如果没有SD卡
+								ToastUtils.showToastLong(VideoActivity.this,"正在下载———" +
+										Environment.getDataDirectory() + "/downloadVieo/" + mVDVideoView.getListInfo().getCurrInfo().mTitle);
+							}
+
+						}
+
+						@Override
+						public void onLoading(long total, long current,
+											  boolean isUploading) {
+							super.onLoading(total, current, isUploading);
+						}
+
+						@Override
+						public void onSuccess(ResponseInfo<File> responseInfo) {
+							ToastUtils.showToastLong(VideoActivity.this,"下载成功");
+						}
+
+						@Override
+						public void onFailure(HttpException error, String msg) {
+						}
+					});
+
+
+		}
+
 	}
 
 }

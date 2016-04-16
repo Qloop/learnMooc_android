@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="280dp"
+              android:layout_height="190dp"
+              android:background="@drawable/shape_avatar_change_bg"
+              android:orientation="vertical"
+              android:weightSum="14">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="@string/changeAvatar"
+        android:textColor="@color/status_color"
+        android:textSize="16sp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/status_color"/>
+
+    <TextView
+        android:id="@+id/tv_take_photo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:background="@drawable/seletor_bg_setting_item"
+        android:gravity="center"
+        android:text="@string/takePhoto"
+        android:textColor="@color/light_black_color"
+        android:textSize="16sp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/layout_divider_color"/>
+
+    <TextView
+        android:id="@+id/tv_chose_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:background="@drawable/seletor_bg_setting_item"
+        android:gravity="center"
+        android:text="@string/choseFromGallery"
+        android:textColor="@color/light_black_color"
+        android:textSize="16sp"/>
+</LinearLayout>

@@ -169,6 +169,8 @@ public class NoteDetailActivity extends BaseActivity {
 //		params.addQueryStringParameter("courseId",courseId + "");
 //		params.addQueryStringParameter("noteId",noteContent.get(position).getNoteId() + "");
 
+				//mUrl要换
+
 				httpUtils.send(HttpRequest.HttpMethod.POST, mUrl, new RequestCallBack<String>() {
 					@Override
 					public void onSuccess(ResponseInfo<String> responseInfo) {

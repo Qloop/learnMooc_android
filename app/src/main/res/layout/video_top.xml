@@ -44,7 +44,7 @@
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/iv_note"
         android:layout_toStartOf="@+id/iv_note"
-        android:onClick="ArticleShare"
+        android:onClick="VideoDownLoad"
         android:padding="5dp"
         android:src="@drawable/download"/>
 

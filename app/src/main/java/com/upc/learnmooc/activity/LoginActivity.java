@@ -204,6 +204,7 @@ public class LoginActivity extends BaseActivity {
 				//登录成功的话 更新一下用户信息到本地
 				UserInfoCacheUtils.setInt(LoginActivity.this,"id",userInfo.getId());
 				UserInfoCacheUtils.setString(LoginActivity.this, "password", userInfo.getPassword());
+				UserInfoCacheUtils.setString(LoginActivity.this, "mail", userInfo.getMail());
 				UserInfoCacheUtils.setString(LoginActivity.this, "nickname", userInfo.getNickname());
 				UserInfoCacheUtils.setString(LoginActivity.this, "avatar", userInfo.getAvatar());
 				UserInfoCacheUtils.setInt(LoginActivity.this, "roleType", userInfo.getRoleType());

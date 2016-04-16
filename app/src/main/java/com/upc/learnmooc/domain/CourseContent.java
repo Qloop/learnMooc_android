@@ -1,5 +1,7 @@
 package com.upc.learnmooc.domain;
 
+import java.util.ArrayList;
+
 /**
  * 课程视频的基本信息数据
  * Created by Explorer on 2016/3/12.
@@ -8,14 +10,27 @@ public class CourseContent {
 
 	public int courseId;
 	public String courseName;
-	public String videoUrl;
+	public ArrayList<VideoContent> videoUrl;
+
+	public class VideoContent {
+		public String url;
+
+		public void setUrl(String url) {
+			this.url = url;
+		}
+
+		public String getUrl() {
+			return url;
+		}
+	}
+
 
 	@Override
 	public String toString() {
 		return "CourseContent{" +
 				"courseId=" + courseId +
 				", courseName='" + courseName + '\'' +
-				", videoUrl='" + videoUrl + '\'' +
+				", videoUrl=" + videoUrl +
 				'}';
 	}
 
@@ -27,9 +42,6 @@ public class CourseContent {
 		this.courseName = courseName;
 	}
 
-	public void setVideoUrl(String videoUrl) {
-		this.videoUrl = videoUrl;
-	}
 
 	public int getCourseId() {
 		return courseId;
@@ -39,7 +51,4 @@ public class CourseContent {
 		return courseName;
 	}
 
-	public String getVideoUrl() {
-		return videoUrl;
-	}
 }

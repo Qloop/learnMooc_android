@@ -1,6 +1,6 @@
 package com.upc.learnmooc.activity;
 
-import android.app.Activity;
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,24 +9,38 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.AnimationSet;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.upc.learnmooc.R;
+import com.upc.learnmooc.fragment.AboutUsFragment;
+import com.upc.learnmooc.fragment.SuggestionFragment;
+import com.upc.learnmooc.fragment.UserFragment;
 import com.upc.learnmooc.global.GlobalConstants;
 import com.upc.learnmooc.utils.PrefUtils;
 import com.upc.learnmooc.utils.StreamUtils;
+import com.upc.learnmooc.utils.SystemBarTintManager;
 import com.upc.learnmooc.utils.ToastUtils;
+import com.upc.learnmooc.utils.UserInfoCacheUtils;
+import com.upc.learnmooc.view.SettingsItemLayout;
 import com.upc.learnmooc.view.UpdateProgressDialog;
 
 import org.json.JSONException;
@@ -42,25 +56,32 @@ import java.net.URL;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
- * 启动页
- * Created by Explorer on 2016/1/16.
+ * 设置页面
+ * Created by Explorer on 2016/4/12.
  */
-public class SplashActivity extends Activity {
+public class SettingsActivity extends FragmentActivity {
+	private LinearLayout mLayout;
+
+	private ImageView ivAvatar;
+	private TextView tvNickName;
+	private SettingsItemLayout silSuggestion;
+	private SettingsItemLayout silUpdate;
+	private SettingsItemLayout silAboutUs;
+	private String avatarUrl;
+	private String nickname;
 
 	private static final int CODE_GET_VERSION = 0;
 	private static final int CODE_URL_ERROR = 1;
 	private static final int CODE_NET_ERROR = 2;
 	private static final int CODE_JSON_ERROR = 3;
-	private static final int CODE_ENTER_HOME = 4;
+	private static final int CODE_IS_RECENT = 4;
 
-	LinearLayout mRootLayout;
 	//从服务器获取的版本信息
 	private String mVersionName;
 	private int mVersionCode;
 	private String mDescription;
 	private String mDownloadUrl;
 	private String mApkName;
-
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -69,123 +90,110 @@ public class SplashActivity extends Activity {
 					showUpdateDialog();
 					break;
 				case CODE_URL_ERROR:
-					ToastUtils.showToastShort(SplashActivity.this, "URL错误");
-					enterHome();
+					ToastUtils.showToastShort(SettingsActivity.this, "URL错误");
 					break;
 				case CODE_NET_ERROR:
-					ToastUtils.showToastShort(SplashActivity.this, "网络错误");
-					enterHome();
+					ToastUtils.showToastShort(SettingsActivity.this, "网络错误");
 					break;
 				case CODE_JSON_ERROR:
-					ToastUtils.showToastShort(SplashActivity.this, "数据解析错误");
-					enterHome();
+					ToastUtils.showToastShort(SettingsActivity.this, "数据解析错误");
 					break;
-				case CODE_ENTER_HOME:
-					jumpToNextPager();
+				case CODE_IS_RECENT:
+					//提示已经是最新
+					ToastUtils.showToastLong(SettingsActivity.this, "已经是最新版啦^.^");
 					break;
 
 			}
 		}
 	};
-	private SweetAlertDialog pDialog;
 
+
+	private SweetAlertDialog pDialog;
+	private RelativeLayout userLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.splash_activity);
-//		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		initView();
-		startAnim();
-		checkVersion();
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			setTranslucentStatus(true);
+			SystemBarTintManager tintManager = new SystemBarTintManager(this);
+			tintManager.setStatusBarTintEnabled(true);
+			tintManager.setStatusBarTintResource(R.color.status_color);//通知栏所需颜色
+		}
+		setContentView(R.layout.activity_settings);
+		initData();
+		initViews();
 	}
 
-	/**
-	 * 初始化
-	 */
-	private void initView() {
-		mRootLayout = (LinearLayout) findViewById(R.id.layout_root);
-	}
-
-
-	/**
-	 * 启动页动画
-	 */
-	private void startAnim() {
-		AnimationSet animationSet = new AnimationSet(false);
-		//渐变
-		AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
-		alphaAnimation.setDuration(2000);//2s
-		alphaAnimation.setFillAfter(true);
-
-//		//缩放
-//		ScaleAnimation scaleAnimation = new ScaleAnimation(0, 1, 0, 1,
-//				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-//		scaleAnimation.setDuration(2000);
-//		scaleAnimation.setFillAfter(true);
-
-		animationSet.addAnimation(alphaAnimation);
-//		animationSet.addAnimation(scaleAnimation);
-//		animationSet.setAnimationListener(new Animation.AnimationListener() {
-//			@Override
-//			public void onAnimationStart(Animation animation) {
-//
-//			}
-//
-//			@Override
-//			public void onAnimationEnd(Animation animation) {
-//
-//			}
-//
-//			@Override
-//			public void onAnimationRepeat(Animation animation) {
-//
-//			}
-//		});
-		mRootLayout.startAnimation(animationSet);
-	}
-
-	/**
-	 * 跳转下一个页面
-	 * 如果是第一次打开则跳转新手引导页
-	 * 否则跳转主页
-	 */
-	private void jumpToNextPager() {
-		boolean isShowed = PrefUtils.getBoolean(this, "is_user_guide_hasShowed", false);
-		if (!isShowed) {
-			Intent intent = new Intent(SplashActivity.this, GuidePagerActivity.class);
-			startActivity(intent);
-			finish();
+	@TargetApi(19)
+	private void setTranslucentStatus(boolean on) {
+		Window win = getWindow();
+		WindowManager.LayoutParams winParams = win.getAttributes();
+		final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+		if (on) {
+			winParams.flags |= bits;
 		} else {
-			enterHome();
+			winParams.flags &= ~bits;
 		}
-		finish();
+		win.setAttributes(winParams);
 	}
 
+	public void initViews() {
+		mLayout = (LinearLayout) findViewById(R.id.ll_setting);
+		userLayout = (RelativeLayout) findViewById(R.id.rl_userlayout);
+		ivAvatar = (ImageView) findViewById(R.id.iv_avatar);
+		tvNickName = (TextView) findViewById(R.id.tv_nickname);
+		silSuggestion = (SettingsItemLayout) findViewById(R.id.sil_suggestion);
+		silUpdate = (SettingsItemLayout) findViewById(R.id.sil_update);
+		silAboutUs = (SettingsItemLayout) findViewById(R.id.sil_about);
 
-	/**
-	 * 进入主页面
-	 */
-	private void enterHome() {
-		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
-		finish();
-	}
+		//个人信息
+		userLayout.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				FragmentManager fragmentManger = getSupportFragmentManager();
+				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManger.beginTransaction();
+				UserFragment userFragment = new UserFragment();
+				Bundle bundle = new Bundle();
+				bundle.putString("avatarUrl", avatarUrl);
+				bundle.putString("nickname", nickname);
+				userFragment.setArguments(bundle);
+				fragmentTransaction.add(R.id.settings_container,userFragment).commit();
+				mLayout.setVisibility(View.GONE);
+			}
+		});
 
-	/**
-	 * 获取本机的版本名
-	 */
-	private String getVersionName() {
-		PackageManager packageManager = getPackageManager();
-		try {
-			PackageInfo packageInfo = packageManager.getPackageInfo(getPackageName(), 0);
-			String versionName = packageInfo.versionName;
-			return versionName;
-		} catch (PackageManager.NameNotFoundException e) {
-			//报名没找到
-			e.printStackTrace();
-		}
-		return null;
+
+		//意见反馈
+		silSuggestion.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				FragmentManager fragmentManger = getSupportFragmentManager();
+				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManger.beginTransaction();
+				fragmentTransaction.add(R.id.settings_container, new SuggestionFragment()).commit();
+				mLayout.setVisibility(View.GONE);
+			}
+		});
+
+		//版本更新
+		silUpdate.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				checkVersion();
+			}
+		});
+
+		//关于我们
+		silAboutUs.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				FragmentManager fragmentManger = getSupportFragmentManager();
+				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManger.beginTransaction();
+				fragmentTransaction.add(R.id.settings_container, new AboutUsFragment()).commit();
+				mLayout.setVisibility(View.GONE);
+			}
+		});
+
 	}
 
 	/**
@@ -204,6 +212,7 @@ public class SplashActivity extends Activity {
 		}
 		return -1;
 	}
+
 
 	/**
 	 * 检查版本更新
@@ -238,7 +247,7 @@ public class SplashActivity extends Activity {
 							msg.what = CODE_GET_VERSION;
 //							System.out.println("服务器拿到的版本号" + mVersionCode);
 						} else {
-							msg.what = CODE_ENTER_HOME;
+							msg.what = CODE_IS_RECENT;
 						}
 					}
 				} catch (MalformedURLException e) {
@@ -264,18 +273,6 @@ public class SplashActivity extends Activity {
 		return msg.what;
 	}
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-			jumpToNextPager();
-//			if(pDialog != null){
-//				jumpToNextPager();
-//				pDialog.dismiss();
-//			}
-		}
-		return false;
-	}
-
 	/**
 	 * 显示更新提示的弹窗
 	 */
@@ -290,7 +287,6 @@ public class SplashActivity extends Activity {
 			@Override
 			public void onClick(SweetAlertDialog sweetAlertDialog) {
 				pDialog.dismiss();
-				jumpToNextPager();
 			}
 		});
 
@@ -299,7 +295,7 @@ public class SplashActivity extends Activity {
 			@Override
 			public void onClick(SweetAlertDialog sweetAlertDialog) {
 				pDialog.dismiss();
-				downLoadTask task = new downLoadTask(SplashActivity.this, mDownloadUrl, mApkName);
+				downLoadTask task = new downLoadTask(SettingsActivity.this, mDownloadUrl, mApkName);
 				task.execute();
 			}
 		});
@@ -389,7 +385,7 @@ public class SplashActivity extends Activity {
 				}
 			});
 			mProgressDialog.show();
-			mProgressDialog.setOnKeyListener(onKeyListener);//处理返回键 隐藏进度条 进入主页
+			mProgressDialog.setOnKeyListener(onKeyListener);//处理返回键 隐藏进度条
 		}
 
 
@@ -423,9 +419,9 @@ public class SplashActivity extends Activity {
 			@Override
 			public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
 				if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-//					mProgressDialog.dismiss();
-					Intent intent = new Intent(mContext, MainActivity.class);
-					startActivity(intent);
+					mProgressDialog.dismiss();
+//					Intent intent = new Intent(mContext, MainActivity.class);
+//					startActivity(intent);
 				}
 				return false;
 			}
@@ -435,22 +431,49 @@ public class SplashActivity extends Activity {
 	}
 
 
-	/**
-	 * @param requestCode
-	 * @param resultCode
-	 * @param data
-	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		//加switch 便于以后扩展
 		switch (requestCode) {
 			case 0:
-				enterHome();//如果下载完成后 用户点击取消安装 则进入主页
+				pDialog.dismiss();//如果下载完成后 用户点击取消安装 则进入主页
 				break;
 			default:
-				enterHome();
 				break;
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
+
+	private void initData() {
+		avatarUrl = UserInfoCacheUtils.getString(SettingsActivity.this, "avatar", null);
+		nickname = UserInfoCacheUtils.getString(SettingsActivity.this, "nickname", null);
+		if (avatarUrl != null) {
+			getAvatarFromServer();
+		} else {
+			//未登录
+		}
+		if (nickname != null) {
+			tvNickName.setText(nickname);
+		} else {
+			//未登录
+		}
+	}
+
+	private void getAvatarFromServer() {
+		BitmapUtils bitmapUtils = new BitmapUtils(SettingsActivity.this);
+		bitmapUtils.configDefaultLoadingImage(R.drawable.defaultimage);
+		bitmapUtils.display(ivAvatar, avatarUrl);
+	}
+
+	/**
+	 * 退出登录
+	 */
+	public void QuitLogin(View view) {
+		//清空配置缓存文件
+		UserInfoCacheUtils.ClearCache(SettingsActivity.this, new String[]{"password", "mail", "nickname", "avatar"});
+		PrefUtils.ClearPreCache(SettingsActivity.this, new String[]{"is_user_guide_hasShowed"});
+		startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
+		finish();
+	}
+
 }

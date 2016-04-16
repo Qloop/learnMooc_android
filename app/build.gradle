@@ -41,10 +41,11 @@ dependencies {
     compile files('libs/ShareSDK-YouDao-2.7.0.jar')
     compile files('libs/MobCommons-2016.0301.1053.jar')
     compile files('libs/MobTools-2016.0301.1053.jar')
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.android.support:cardview-v7:22.2.0'
-    compile 'com.android.support:design:22.2.1'
-    compile 'com.android.support:recyclerview-v7:22.2.0'
-    compile 'com.github.nicolasjafelle:paginggridview:1.0'
     compile files('libs/renderscript-v8.jar')
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:cardview-v7:22.2.1'
+    compile 'com.android.support:design:22.2.1'
+    compile 'com.android.support:recyclerview-v7:22.2.1'
+    compile 'com.github.nicolasjafelle:paginggridview:1.0'
+    compile 'com.android.support:support-v4:22.2.1'
 }

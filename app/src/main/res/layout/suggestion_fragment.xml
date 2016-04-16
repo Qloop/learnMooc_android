@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <com.upc.learnmooc.view.TopBarView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:topIcon="@drawable/toolbar_back"
+        app:topTitle="意见反馈"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/et_suggestion"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/shape_rect_shoke"
+            android:gravity="left"
+            android:hint="有什么不爽或建议都告诉我们吧！"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_word_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/et_suggestion"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:text="1000"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/selector_sub_suggetion"
+        android:text="@string/pub_suggestion"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"/>
+</LinearLayout>
