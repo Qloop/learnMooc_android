@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
               android:gravity="center"
               android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:padding="10dp"
-              android:layout_height="match_parent">
+              android:padding="10dp">
+
     <ImageView
         android:id="@+id/iv_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:paddingBottom="10dp"
-        android:src="@drawable/mine_fouse_course"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:src="@drawable/mine_fouse_course"/>
 
-    <TextView
+    <com.romainpiel.shimmer.ShimmerTextView
         android:id="@+id/tv_name"
-        android:text="关注的课程"
-        android:textSize="13sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="关注的课程"
+        android:textColor="@color/light_black_color"
+        android:textSize="13sp"/>
 </LinearLayout>

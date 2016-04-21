@@ -17,12 +17,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.upc.learnmooc.MyApplication;
 import com.upc.learnmooc.R;
 import com.upc.learnmooc.fragment.CommunityFragment;
 import com.upc.learnmooc.fragment.CourseFragment;
 import com.upc.learnmooc.fragment.DownloadFragment;
 import com.upc.learnmooc.fragment.MineFragment;
 import com.upc.learnmooc.utils.SystemBarTintManager;
+import com.upc.learnmooc.view.TipsView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +55,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 	private TextView tvMine;
 	private static final int BACK_TO_ARTICLE_LIST = 0;
 	private double exitTime = 0.1;
+	private ImageView ivMineMsg;
+	public static TextView tvMsg;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +94,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 			tintManager.setStatusBarTintResource(R.color.status_color);//通知栏所需颜色
 		}
 
+		ivMineMsg = (ImageView) findViewById(R.id.iv_mine_img);
+		tvMsg = (TextView) findViewById(R.id.notify_text);
 		mViewPager = (ViewPager) findViewById(R.id.vp_main);
 		//获取底部四个tab布局
 		courseTab = (LinearLayout) findViewById(R.id.tab_course);
@@ -112,7 +118,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		Fragment courseFragment = new CourseFragment();
 		Fragment CommunityFragment = new CommunityFragment();
 		Fragment DownloadFragment = new DownloadFragment();
-		Fragment MineFragment = new MineFragment();
+		final Fragment MineFragment = new MineFragment();
 
 		//初始化viewpager适配器数据源
 		mFragments = new ArrayList<>();
@@ -154,7 +160,42 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 			}
 		});
+
+
+//		jPushReceiver = new MyReceiver();
+//		IntentFilter intentFilter = new IntentFilter();
+//		intentFilter.addAction("cn.jpush.android.intent.MESSAGE_RECEIVED");
+//		registerReceiver(jPushReceiver, intentFilter);
+
+//		Intent intent = getIntent();
+//		ArrayList<String> jPushMsgList = intent.getStringArrayListExtra("JPush");
+		MyApplication application = (MyApplication) getApplication();
+		final ArrayList<String> jPushMsgList = application.getJPushMsgList();
+
+		if (jPushMsgList != null && jPushMsgList.size() != 0) {//&&短路效果 不会出现空指针异常
+
+			tvMsg.setVisibility(View.VISIBLE);
+			tvMsg.setText(jPushMsgList.size() + "");
+
+			//设置消息提醒(消息数目)
+			TipsView.create(this).attach(tvMsg, new TipsView.DragListener() {
+				@Override
+				public void onStart() {
+				}
+
+				@Override
+				public void onComplete() {
+					jPushMsgList.clear();
+				}
+
+				@Override
+				public void onCancel() {
+					tvMsg.setVisibility(View.VISIBLE);
+				}
+			});
+		}
 	}
+
 
 	/**
 	 * 初始化底部tab的点击事件

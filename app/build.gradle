@@ -4,6 +4,10 @@ android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
+    sourceSets.main {
+        jniLibs.srcDirs = ['libs']  // <-- Set your folder here!
+    }
+
     defaultConfig {
         applicationId "com.upc.learnmooc"
         minSdkVersion 16
@@ -48,4 +52,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.2.1'
     compile 'com.github.nicolasjafelle:paginggridview:1.0'
     compile 'com.android.support:support-v4:22.2.1'
+    compile files('libs/jpush-android-2.1.3.jar')
+    compile 'com.romainpiel.shimmer:library:1.4.0@aar'
 }

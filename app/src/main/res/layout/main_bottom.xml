@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:padding="5dp"
-              android:background="@drawable/shadow"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="horizontal">
+              android:background="@drawable/shadow"
+              android:orientation="horizontal"
+              android:padding="5dp">
 
     <LinearLayout
         android:id="@+id/tab_course"
@@ -89,12 +89,30 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_mine_img"
+        <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/mine_normal"/>
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_mine_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/mine_normal"/>
+
+            <TextView
+                android:id="@+id/notify_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|top"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/notify"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
+                android:visibility="invisible"/>
+        </FrameLayout>
+
 
         <TextView
             android:id="@+id/tv_mine"

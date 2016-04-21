@@ -166,4 +166,5 @@
     <string name="takePhoto">拍照</string>
     <string name="changeAvatar">修改头像</string>
     <string name="choseFromGallery">从相册选取</string>
+    <string name="myMsg">我的消息</string>
 </resources>
