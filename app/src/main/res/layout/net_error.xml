@@ -11,18 +11,19 @@
         android:src="@drawable/net_error"/>
 
     <TextView
-        android:paddingTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="网络异常"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:text="@string/net_error"
         android:textColor="@android:color/darker_gray"
-        android:textSize="18sp"/>
+        android:textSize="16sp"/>
 
     <TextView
-        android:paddingTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="10dp"
         android:text="~~~T_T~~~"
         android:textColor="@android:color/darker_gray"
-        android:textSize="18sp"/>
+        android:textSize="16sp"/>
 </LinearLayout>

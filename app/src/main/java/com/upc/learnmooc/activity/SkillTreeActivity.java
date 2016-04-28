@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -71,7 +72,6 @@ public class SkillTreeActivity extends FragmentActivity {
 	private void initViews() {
 		mTabLayout = (TabLayout) findViewById(R.id.tabs);
 		mViewPager = (ViewPager) findViewById(R.id.viewpager);
-
 
 	}
 

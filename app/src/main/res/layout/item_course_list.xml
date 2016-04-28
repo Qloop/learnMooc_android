@@ -19,7 +19,7 @@
             android:background="@android:color/darker_gray"
             android:padding="1dp"
             android:scaleType="fitXY"
-            android:src="@drawable/course_list_default"/>
+            android:src="@drawable/course_default_bg2"/>
 
         <TextView
             android:id="@+id/tv_course_description"

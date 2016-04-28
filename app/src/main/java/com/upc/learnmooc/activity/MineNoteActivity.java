@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -32,6 +33,8 @@ public class MineNoteActivity extends BaseActivity {
 	private ListView mListView;
 	private String mUrl;
 	private ArrayList<NoteInfo.NoteData> listCourse;
+	private ViewStub viewStubNet;
+	private ViewStub viewStubBlank;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,8 @@ public class MineNoteActivity extends BaseActivity {
 	@Override
 	public void initViews() {
 		mListView = (ListView) findViewById(R.id.lv_note);
+		viewStubNet = (ViewStub) findViewById(R.id.vs_net_error);
+		viewStubBlank = (ViewStub) findViewById(R.id.vs_blank_content);
 	}
 
 	private void initData() {
@@ -70,6 +75,7 @@ public class MineNoteActivity extends BaseActivity {
 			@Override
 			public void onFailure(HttpException e, String s) {
 				e.printStackTrace();
+				viewStubNet.inflate().setVisibility(View.VISIBLE);
 			}
 		});
 	}
@@ -89,6 +95,13 @@ public class MineNoteActivity extends BaseActivity {
 					startActivity(intent);
 				}
 			});
+		}else {
+			View contentView = viewStubBlank.inflate();
+			contentView.setVisibility(View.VISIBLE);
+			TextView tvHint = (TextView) contentView.findViewById(R.id.tv_hint);
+			TextView tvHintDetail = (TextView) contentView.findViewById(R.id.tv_hint_detail);
+			tvHint.setText("没有笔记");
+			tvHintDetail.setText("去边看视频边记笔记吧^_^");
 		}
 	}
 
@@ -99,7 +112,7 @@ public class MineNoteActivity extends BaseActivity {
 
 		public ListViewAdapter() {
 			bitmapUtils = new BitmapUtils(MineNoteActivity.this);
-			bitmapUtils.configDefaultLoadingImage(R.drawable.course_default_bg);
+			bitmapUtils.configDefaultLoadingImage(R.drawable.course_default_bg2);
 		}
 
 		@Override

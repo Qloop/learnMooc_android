@@ -146,7 +146,7 @@ public class AspectFrgment extends BaseFragment {
 
 		public MyPagingAdaper() {
 			bitmapUtils = new BitmapUtils(mActivity);
-			bitmapUtils.configDefaultLoadingImage(R.drawable.pic_item_list_default);
+			bitmapUtils.configDefaultLoadingImage(R.drawable.course_default_bg2);
 		}
 
 

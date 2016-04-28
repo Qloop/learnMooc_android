@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -32,6 +33,8 @@ public class CollectedCourseActivity extends BaseActivity {
 	private ListView mListView;
 	private String mUrl;
 	private ArrayList<MainCourse.ListCourse> listCourse;
+	private ViewStub viewStubNet;
+	private ViewStub viewStubBlank;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,8 @@ public class CollectedCourseActivity extends BaseActivity {
 	@Override
 	public void initViews() {
 		mListView = (ListView) findViewById(R.id.lv_collect_course);
+		viewStubNet = (ViewStub) findViewById(R.id.vs_net_error);
+		viewStubBlank = (ViewStub) findViewById(R.id.vs_blank_content);
 	}
 
 	private void initData() {
@@ -69,6 +74,7 @@ public class CollectedCourseActivity extends BaseActivity {
 			@Override
 			public void onFailure(HttpException e, String s) {
 				e.printStackTrace();
+				viewStubNet.inflate().setVisibility(View.VISIBLE);
 			}
 		});
 
@@ -78,7 +84,7 @@ public class CollectedCourseActivity extends BaseActivity {
 		Gson gson = new Gson();
 		MainCourse mainCourse = gson.fromJson(result, MainCourse.class);
 		listCourse = mainCourse.listCourse;
-		if(listCourse != null){
+		if (listCourse != null) {
 			mListView.setAdapter(new ListCourseAdapter());
 			mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				@Override
@@ -89,6 +95,13 @@ public class CollectedCourseActivity extends BaseActivity {
 					startActivity(intent);
 				}
 			});
+		} else {
+			View contentView = viewStubBlank.inflate();
+			contentView.setVisibility(View.VISIBLE);
+			TextView tvHint = (TextView) contentView.findViewById(R.id.tv_hint);
+			TextView tvHintDetail = (TextView) contentView.findViewById(R.id.tv_hint_detail);
+			tvHint.setText("没有收藏");
+			tvHintDetail.setText("去收藏喜欢的课程吧^_^");
 		}
 
 	}
@@ -102,7 +115,7 @@ public class CollectedCourseActivity extends BaseActivity {
 
 		public ListCourseAdapter() {
 			bitmapUtils = new BitmapUtils(CollectedCourseActivity.this);
-			bitmapUtils.configDefaultLoadingImage(R.drawable.pic_item_list_default);//设置默认显示的图片
+			bitmapUtils.configDefaultLoadingImage(R.drawable.course_default_bg2);//设置默认显示的图片
 		}
 
 		@Override

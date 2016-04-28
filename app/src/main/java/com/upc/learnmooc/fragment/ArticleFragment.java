@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -42,14 +43,17 @@ public class ArticleFragment extends BaseFragment {
 	private String mMoreUrl;
 	private ListArticleAdapter adapter;
 	private int BACK_TO_ARTICLE_LIST = 0;
+	private ViewStub viewStub;
 
 	@Override
 	public View initViews() {
 		View view = View.inflate(mActivity, R.layout.community_article_frgment, null);
 
-		ViewUtils.inject(this,view);
+		ViewUtils.inject(this, view);
 
 		mListView = (RefreshListView) view.findViewById(R.id.lv_artilce);
+		viewStub = (ViewStub) view.findViewById(R.id.vs_net_error);
+
 
 		//下拉刷新和加载更多
 		mListView.setOnRefreshListener(new RefreshListView.OnRefreshListener() {
@@ -75,14 +79,13 @@ public class ArticleFragment extends BaseFragment {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent = new Intent();
 				intent.setClass(mActivity, ArticleActivity.class);
-				intent.putExtra("url", articleData.get(position).getUrl());
+				intent.putExtra("url", articleData.get(position).getArticleUrl());
 				intent.putExtra("title", articleData.get(position).getTitle());
 				startActivityForResult(intent, BACK_TO_ARTICLE_LIST);
 			}
 		});
 		return view;
 	}
-
 
 
 	@Override
@@ -107,6 +110,7 @@ public class ArticleFragment extends BaseFragment {
 			public void onFailure(HttpException e, String s) {
 				e.printStackTrace();
 				mListView.onRefreshComplete(false);
+				viewStub.inflate().setVisibility(View.VISIBLE);
 			}
 		});
 	}
@@ -142,7 +146,7 @@ public class ArticleFragment extends BaseFragment {
 		// 处理下一页链接
 		String more = articleList.more;
 		if (!TextUtils.isEmpty(more)) {
-			mMoreUrl = more;
+			mMoreUrl = GlobalConstants.BASE_URL + more;
 		} else {
 			mMoreUrl = null;
 		}
@@ -237,7 +241,7 @@ public class ArticleFragment extends BaseFragment {
 			//设置填充内容
 			ArticleList.ArticleInfo articleInfo = articleData.get(position);
 			holder.tvTitle.setText(articleInfo.getTitle());
-			holder.tvClassify.setText(articleInfo.getClassify());
+			holder.tvClassify.setText(articleInfo.getClassifyName());
 			holder.tvNum.setText(articleInfo.getNum() + "");
 			bitmapUtils.display(holder.ivPic, articleInfo.getImg());
 

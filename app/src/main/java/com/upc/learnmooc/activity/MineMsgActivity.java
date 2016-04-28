@@ -3,6 +3,7 @@ package com.upc.learnmooc.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ public class MineMsgActivity extends BaseActivity {
 
 	private ListView mListView;
 	private ArrayList<String> jPushMsgList = new ArrayList<>();
+	private ViewStub viewStub;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +35,20 @@ public class MineMsgActivity extends BaseActivity {
 	@Override
 	public void initViews() {
 		mListView = (ListView) findViewById(R.id.lv_msg);
+		viewStub = (ViewStub) findViewById(R.id.vs_blank_content);
 //		MyApplication application = (MyApplication) getApplication();
 //		jPushMsgList = application.getJPushMsgList();
 		loadArray();
 
 		if (jPushMsgList != null && jPushMsgList.size() != 0) {
 			mListView.setAdapter(new MsgListViewAdapter());
+		}else {
+			View contentView = viewStub.inflate();
+			contentView.setVisibility(View.VISIBLE);
+			TextView tvHint = (TextView) contentView.findViewById(R.id.tv_hint);
+			TextView tvHintDetail = (TextView) contentView.findViewById(R.id.tv_hint_detail);
+			tvHint.setText("没有消息");
+			tvHintDetail.setText("有问题就反馈给我吧^_^");
 		}
 
 	}

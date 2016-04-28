@@ -37,6 +37,7 @@
             android:textColor="@color/colorWhite"
             android:textSize="18sp"/>
 
+
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_pager"
             android:layout_width="match_parent"
@@ -46,6 +47,8 @@
             android:layout_marginLeft="45dp"
             android:layout_marginRight="45dp"
             android:clipChildren="false"/>
+
+
     </RelativeLayout>
 
 </FrameLayout>

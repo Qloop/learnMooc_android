@@ -8,7 +8,7 @@
                      android:top="7dp"
                      android:left="7dp"
                      android:right="7dp"/>
-            <solid android:color="#50cccc"/>
+            <solid android:color="#33ccff"/>
 
         </shape>
     </item>

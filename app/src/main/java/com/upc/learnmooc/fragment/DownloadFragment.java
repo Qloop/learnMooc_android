@@ -5,6 +5,7 @@ import android.os.StatFs;
 import android.text.format.Formatter;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,10 +36,12 @@ public class DownloadFragment extends BaseFragment {
 	private String hasUsedStr;
 	private File file;
 	private String[] videoList;
+	private ViewStub viewStub;
 
 	@Override
 	public View initViews() {
 		View view = View.inflate(mActivity, R.layout.download_fragment, null);
+		viewStub = (ViewStub) view.findViewById(R.id.vs_blank_content);
 
 		//view和事件注入
 		ViewUtils.inject(this, view);
@@ -88,8 +91,16 @@ public class DownloadFragment extends BaseFragment {
 		tvSurplusSize.setText(availStr);
 
 		videoList = file.list();
-		if(videoList != null){
+		if (videoList != null) {
 			mListView.setAdapter(new DownLoadListAdapter());
+		} else {
+			View contentView = viewStub.inflate();
+			contentView.setVisibility(View.VISIBLE);
+			TextView tvHint = (TextView) contentView.findViewById(R.id.tv_hint);
+			TextView tvHintDetail = (TextView) contentView.findViewById(R.id.tv_hint_detail);
+			tvHint.setText("没有下载内容");
+			tvHintDetail.setText("快去下载喜欢的课程学习吧^_^");
+
 		}
 	}
 
@@ -97,7 +108,6 @@ public class DownloadFragment extends BaseFragment {
 	 * listview数据适配器
 	 */
 	class DownLoadListAdapter extends BaseAdapter {
-
 
 
 		@Override

@@ -13,6 +13,28 @@ public class CourseClassify {
 	public class ClassifyData {
 		public String classifyName;
 		public ArrayList<CourseInfo> courseInfo;
+
+		public ClassifyData(String classifyName, ArrayList<CourseInfo> courseInfo) {
+			this.classifyName = classifyName;
+			this.courseInfo = courseInfo;
+		}
+
+
+		public void setClassifyName(String classifyName) {
+			this.classifyName = classifyName;
+		}
+
+		public void setCourseInfo(ArrayList<CourseInfo> courseInfo) {
+			this.courseInfo = courseInfo;
+		}
+
+		public String getClassifyName() {
+			return classifyName;
+		}
+
+		public ArrayList<CourseInfo> getCourseInfo() {
+			return courseInfo;
+		}
 	}
 
 	public class CourseInfo {

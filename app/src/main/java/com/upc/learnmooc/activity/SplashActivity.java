@@ -73,7 +73,7 @@ public class SplashActivity extends Activity {
 					enterHome();
 					break;
 				case CODE_NET_ERROR:
-					ToastUtils.showToastShort(SplashActivity.this, "网络错误");
+					ToastUtils.showToastShort(SplashActivity.this, "网络异常");
 					enterHome();
 					break;
 				case CODE_JSON_ERROR:

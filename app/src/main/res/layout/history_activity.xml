@@ -12,12 +12,24 @@
         android:layout_height="56dp"
         app:topTitle="最近学习"/>
 
-    <ListView
-        android:id="@+id/lv_timeTree"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@null"
-        android:paddingBottom="10dp"
-        android:scrollbars="none"/>
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lv_timeTree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:paddingBottom="10dp"
+            android:scrollbars="none"/>
+
+        <ViewStub
+            android:id="@+id/vs_net_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout="@layout/net_error"/>
+    </FrameLayout>
+
 
 </LinearLayout>

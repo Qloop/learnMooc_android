@@ -87,7 +87,7 @@ public class CollectedArticleFragment extends BaseFragment {
 				public void onItemClick(View view, int position) {
 					Intent intent = new Intent();
 					intent.setClass(mActivity, ArticleActivity.class);
-					intent.putExtra("url", articleData.get(position).getUrl());
+					intent.putExtra("url", articleData.get(position).getArticleUrl());
 					intent.putExtra("title", articleData.get(position).getTitle());
 					startActivity(intent);
 				}

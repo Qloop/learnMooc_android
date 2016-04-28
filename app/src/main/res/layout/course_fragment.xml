@@ -9,12 +9,22 @@
 
     <include layout="@layout/course_top"/>
 
-    <com.upc.learnmooc.view.RefreshListView
-        android:id="@+id/lv_list_course"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:divider="@null"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="match_parent">
+
+        <com.upc.learnmooc.view.RefreshListView
+            android:id="@+id/lv_list_course"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"/>
+
+        <ViewStub
+            android:id="@+id/vs_net_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout="@layout/net_error"/>
+    </FrameLayout>
 </LinearLayout>

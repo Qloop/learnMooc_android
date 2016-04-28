@@ -14,46 +14,42 @@ public class ArticleList {
 
 	public class ArticleInfo {
 		public String title;
-		public String classify;
+		public String classifyName;
 		public String img;
-		public String url;
+		public String articleUrl;
 		public String abstractInfo;
 		public int num;
-
 
 		@Override
 		public String toString() {
 			return "ArticleInfo{" +
 					"title='" + title + '\'' +
-					", classify='" + classify + '\'' +
+					", classifyName='" + classifyName + '\'' +
 					", img='" + img + '\'' +
-					", url='" + url + '\'' +
+					", articleUrl='" + articleUrl + '\'' +
+					", abstractInfo='" + abstractInfo + '\'' +
 					", num=" + num +
 					'}';
-		}
-
-		public String getAbstractInfo() {
-			return abstractInfo;
-		}
-
-		public void setAbstractInfo(String abstractInfo) {
-			this.abstractInfo = abstractInfo;
 		}
 
 		public void setTitle(String title) {
 			this.title = title;
 		}
 
-		public void setClassify(String classify) {
-			this.classify = classify;
+		public void setClassifyName(String classifyName) {
+			this.classifyName = classifyName;
 		}
 
 		public void setImg(String img) {
 			this.img = img;
 		}
 
-		public void setUrl(String url) {
-			this.url = url;
+		public void setArticleUrl(String articleUrl) {
+			this.articleUrl = articleUrl;
+		}
+
+		public void setAbstractInfo(String abstractInfo) {
+			this.abstractInfo = abstractInfo;
 		}
 
 		public void setNum(int num) {
@@ -64,21 +60,33 @@ public class ArticleList {
 			return title;
 		}
 
-		public String getClassify() {
-			return classify;
+		public String getClassifyName() {
+			return classifyName;
 		}
 
 		public String getImg() {
 			return img;
 		}
 
-		public String getUrl() {
-			return url;
+		public String getArticleUrl() {
+			return articleUrl;
+		}
+
+		public String getAbstractInfo() {
+			return abstractInfo;
 		}
 
 		public int getNum() {
 			return num;
 		}
-	}
 
+		public ArticleInfo(String title, String classifyName, String img, String articleUrl, String abstractInfo, int num) {
+			this.title = title;
+			this.classifyName = classifyName;
+			this.img = img;
+			this.articleUrl = articleUrl;
+			this.abstractInfo = abstractInfo;
+			this.num = num;
+		}
+	}
 }

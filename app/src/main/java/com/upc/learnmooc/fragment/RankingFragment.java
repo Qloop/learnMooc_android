@@ -2,6 +2,7 @@ package com.upc.learnmooc.fragment;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -18,7 +19,6 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.upc.learnmooc.R;
 import com.upc.learnmooc.domain.RankList;
 import com.upc.learnmooc.global.GlobalConstants;
-import com.upc.learnmooc.utils.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -33,12 +33,14 @@ public class RankingFragment extends BaseFragment {
 
 	private String mUrl = GlobalConstants.GET_RANK_LIST;
 	private ArrayList<RankList.RankInfo> rankInfos;
+	private ViewStub viewStub;
 
 	@Override
 	public View initViews() {
 		View view = View.inflate(mActivity, R.layout.community_ranking_frgment, null);
-		ViewUtils.inject(this,view);
+		ViewUtils.inject(this, view);
 		mListView = (ListView) view.findViewById(R.id.lv_rank_list);
+		viewStub = (ViewStub) view.findViewById(R.id.vs_net_error);
 
 		return view;
 	}
@@ -61,7 +63,8 @@ public class RankingFragment extends BaseFragment {
 			@Override
 			public void onFailure(HttpException e, String s) {
 				e.printStackTrace();
-				ToastUtils.showToastShort(mActivity, "排位信息获取失败");
+//				ToastUtils.showToastShort(mActivity, "排位信息获取失败");
+				viewStub.inflate().setVisibility(View.VISIBLE);
 			}
 		});
 	}
@@ -71,12 +74,12 @@ public class RankingFragment extends BaseFragment {
 		RankList rankList = gson.fromJson(result, RankList.class);
 		rankInfos = rankList.rankData;
 
-		if(rankInfos != null){
+		if (rankInfos != null) {
 			mListView.setAdapter(new RankListAdapter());
 		}
 	}
 
-	class RankListAdapter extends BaseAdapter{
+	class RankListAdapter extends BaseAdapter {
 
 		@Override
 		public int getCount() {
@@ -96,21 +99,21 @@ public class RankingFragment extends BaseFragment {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder;
-			if(convertView == null){
-				convertView = View.inflate(mActivity,R.layout.item_rank_listview,null);
+			if (convertView == null) {
+				convertView = View.inflate(mActivity, R.layout.item_rank_listview, null);
 				holder = new ViewHolder();
 				holder.ivRank = (ImageView) convertView.findViewById(R.id.iv_rank);
 				holder.tvRank = (TextView) convertView.findViewById(R.id.tv_rank);
 				holder.tvNickName = (TextView) convertView.findViewById(R.id.tv_nickname);
 				holder.tvNumber = (TextView) convertView.findViewById(R.id.tv_number);
 				convertView.setTag(holder);
-			}else {
-				holder = (ViewHolder)convertView.getTag();
+			} else {
+				holder = (ViewHolder) convertView.getTag();
 			}
 
 			RankList.RankInfo rankInfo = rankInfos.get(position);
 
-			if(position == 0){
+			if (position == 0) {
 				holder.ivRank.setVisibility(View.VISIBLE);
 				holder.tvRank.setVisibility(View.GONE);
 
@@ -120,7 +123,7 @@ public class RankingFragment extends BaseFragment {
 
 				holder.tvNickName.setTextSize(16);
 				holder.tvNumber.setTextSize(16);
-			}else if(position == 1){
+			} else if (position == 1) {
 				holder.ivRank.setVisibility(View.VISIBLE);
 				holder.tvRank.setVisibility(View.GONE);
 
@@ -130,7 +133,7 @@ public class RankingFragment extends BaseFragment {
 
 				holder.tvNickName.setTextSize(16);
 				holder.tvNumber.setTextSize(16);
-			}else if(position == 2){
+			} else if (position == 2) {
 				holder.ivRank.setVisibility(View.VISIBLE);
 				holder.tvRank.setVisibility(View.GONE);
 
@@ -140,7 +143,7 @@ public class RankingFragment extends BaseFragment {
 
 				holder.tvNickName.setTextSize(16);
 				holder.tvNumber.setTextSize(16);
-			}else {
+			} else {
 				holder.ivRank.setVisibility(View.GONE);
 				holder.tvRank.setVisibility(View.VISIBLE);
 
@@ -153,7 +156,7 @@ public class RankingFragment extends BaseFragment {
 		}
 	}
 
-	static class ViewHolder{
+	static class ViewHolder {
 		public ImageView ivRank;
 		public TextView tvRank;
 		public TextView tvNickName;

@@ -13,11 +13,23 @@
         app:topIcon="@drawable/toolbar_back"
         app:topTitle="我的消息"/>
 
-    <ListView
-        android:id="@+id/lv_msg"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@null"
-        android:scrollbars="none"/>
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lv_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:scrollbars="none"/>
+
+        <ViewStub
+            android:id="@+id/vs_blank_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout="@layout/blank_content"/>
+    </FrameLayout>
+
 
 </LinearLayout>

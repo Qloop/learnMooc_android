@@ -18,6 +18,7 @@ import com.upc.learnmooc.activity.CollectedCourseActivity;
 import com.upc.learnmooc.activity.CourseHistoryActivity;
 import com.upc.learnmooc.activity.MineMsgActivity;
 import com.upc.learnmooc.activity.MineNoteActivity;
+import com.upc.learnmooc.activity.ScoreActivity;
 import com.upc.learnmooc.activity.SelfArticleActivity;
 import com.upc.learnmooc.activity.SettingsActivity;
 
@@ -34,12 +35,12 @@ public class MineFragment extends BaseFragment {
 	};
 
 	private static final String[] imgNameList = new String[]{
-			"关注的课程", "我的计划", "我的消息",
+			"关注的课程", "我的成绩", "我的消息",
 			"收藏的文章", "我的笔记", "最近学习"
 	};
 	//	private List<Map<String, Object>> listData;
 	private static final int FOURSED_COURSE = 0;
-	private static final int MY_PLAN = 1;
+	private static final int MY_SCORE = 1;
 	private static final int MY_MESSAGES = 2;
 	private static final int COLLECTED_ARTICLE = 3;
 	private static final int MY_NOTE = 4;
@@ -70,7 +71,8 @@ public class MineFragment extends BaseFragment {
 					case FOURSED_COURSE:
 						startActivity(new Intent(mActivity, CollectedCourseActivity.class));
 						break;
-					case MY_PLAN:
+					case MY_SCORE:
+						startActivity(new Intent(mActivity, ScoreActivity.class));
 						break;
 					case MY_MESSAGES:
 						//点击查看后取消红点提示

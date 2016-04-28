@@ -9,6 +9,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -42,6 +43,7 @@ public class ExperimentActivity extends Activity {
 
 	private String mUrl;
 	private ArrayList<ExpertList.ExpertData> expertDatas;
+	private ViewStub viewStub;
 
 //	private Bitmap gaussBitmap;
 //	private Bitmap midBitmap;
@@ -133,7 +135,7 @@ public class ExperimentActivity extends Activity {
 //					if (midBitmap != null) {
 //						blur(midBitmap, ivBgPic, 21f);
 //					}
-					mBgViewPager.setCurrentItem(position,false);
+					mBgViewPager.setCurrentItem(position, false);
 				}
 
 				@Override
@@ -276,7 +278,7 @@ public class ExperimentActivity extends Activity {
 	}
 
 
-	class BgViewPagerAdapter extends PagerAdapter{
+	class BgViewPagerAdapter extends PagerAdapter {
 
 		private LinkedList<View> mViewCache = null;
 		private final BitmapUtils bitmapUtils;

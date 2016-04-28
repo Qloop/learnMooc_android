@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -64,12 +65,17 @@ public class CourseFragment extends BaseFragment {
 	private int currentItem = 0;
 	private ListCourseAdapter listCourseAdapter;
 	private Handler mHandler;
+	private long startTime;
+	private String cache;
+	private ViewStub viewStub;
 
 
 	@Override
 	public View initViews() {
 		View view = View.inflate(mActivity, R.layout.course_fragment, null);
 		View heardView = View.inflate(mActivity, R.layout.heard_course_listview, null);
+
+		viewStub = (ViewStub) view.findViewById(R.id.vs_net_error);
 
 		mLayout = (LinearLayout) heardView.findViewById(R.id.skill_tree);
 		mExpertLayout = (LinearLayout) heardView.findViewById(R.id.laboratory);
@@ -96,6 +102,7 @@ public class CourseFragment extends BaseFragment {
 		mListView.setOnRefreshListener(new RefreshListView.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
+				startTime = System.currentTimeMillis();
 				getDataFromServer();
 			}
 
@@ -115,11 +122,14 @@ public class CourseFragment extends BaseFragment {
 
 	@Override
 	public void initData() {
-		String cache = CacheUtils.getCache(mUrl, mActivity);
+		cache = CacheUtils.getCache(mUrl, mActivity);
 
 		if (!TextUtils.isEmpty(cache)) {
 			parseData(cache, false);
 		}
+//		if (NetConnStatus.ping()) {
+//			getDataFromServer();
+//		}
 		getDataFromServer();
 	}
 
@@ -158,7 +168,6 @@ public class CourseFragment extends BaseFragment {
 
 		@Override
 		public void onPageScrolled(int arg0, float arg1, int arg2) {
-
 		}
 
 		@Override
@@ -172,30 +181,48 @@ public class CourseFragment extends BaseFragment {
 	 * 从服务器获取数据
 	 */
 	private void getDataFromServer() {
-		HttpUtils httpUtils = new HttpUtils();
-		//
-		httpUtils.configCurrentHttpCacheExpiry(5 * 1000);
-		httpUtils.configTimeout(1000 * 5);
-		httpUtils.send(HttpRequest.HttpMethod.GET, GlobalConstants.GET_MAIN_COURSE_URL, new RequestCallBack<String>() {
+		new Thread(new Runnable() {
 			@Override
-			public void onSuccess(ResponseInfo<String> responseInfo) {
-				parseData(responseInfo.result, false);
-				mListView.onRefreshComplete(true);
+			public void run() {
+				HttpUtils httpUtils = new HttpUtils();
+				//
+				httpUtils.configCurrentHttpCacheExpiry(5 * 1000);
+				httpUtils.configTimeout(1000 * 5);
+				httpUtils.send(HttpRequest.HttpMethod.GET, GlobalConstants.GET_MAIN_COURSE_URL, new RequestCallBack<String>() {
+					@Override
+					public void onSuccess(ResponseInfo<String> responseInfo) {
+						parseData(responseInfo.result, false);
+						long endTime = System.currentTimeMillis();
+						if ((endTime - startTime) < 1200) {
+							try {
+								Thread.sleep(1500 - (endTime - startTime));
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+						mListView.onRefreshComplete(true);
 
-				// 设置缓存
-				CacheUtils.setCache(mUrl, responseInfo.result, mActivity);
-			}
+						// 设置缓存
+						CacheUtils.setCache(mUrl, responseInfo.result, mActivity);
+					}
 
-			@Override
-			public void onFailure(HttpException e, String s) {
-				e.printStackTrace();
-				ToastUtils.showToastShort(mActivity, "请求数据失败 请检查网络");
-				mViewPager.setAdapter(new TopCourseAdapter());//获取数据失败的时候设置适配器(进行读取缓存或默认加载处理)
-				mIndictor.setViewPager(mViewPager);//给指示器绑定viewpager
-				mIndictor.setSnap(true);//支持快照
-				mListView.onRefreshComplete(false);
+					@Override
+					public void onFailure(HttpException e, String s) {
+						e.printStackTrace();
+						if(!TextUtils.isEmpty(cache)){
+							ToastUtils.showToastShort(mActivity, "请求数据失败 请检查网络");
+							mViewPager.setAdapter(new TopCourseAdapter());//获取数据失败的时候设置适配器(进行读取缓存或默认加载处理)
+							mIndictor.setViewPager(mViewPager);//给指示器绑定viewpager
+							mIndictor.setSnap(true);//支持快照
+							mListView.onRefreshComplete(false);
+						}else {
+							viewStub.inflate().setVisibility(View.VISIBLE);
+						}
+					}
+				});
 			}
-		});
+		}).start();
+
 	}
 
 	/**
@@ -208,9 +235,7 @@ public class CourseFragment extends BaseFragment {
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				String result = (String) responseInfo.result;
-
 				parseData(result, true);
-
 				mListView.onRefreshComplete(true);
 			}
 
@@ -307,10 +332,10 @@ public class CourseFragment extends BaseFragment {
 
 		public TopCourseAdapter() {
 			config = new BitmapDisplayConfig();
-			config.setLoadingDrawable(getResources().getDrawable(R.drawable.top_course_default));
+			config.setLoadingDrawable(getResources().getDrawable(R.drawable.course_default_bg2));
 			bitmapUtils = new BitmapUtils(mActivity);
 			//设置默认记载过程中的默认显示图
-			bitmapUtils.configDefaultLoadingImage(R.drawable.top_course_default);
+			bitmapUtils.configDefaultLoadingImage(R.drawable.course_default_bg2);
 		}
 
 		@Override
@@ -327,17 +352,26 @@ public class CourseFragment extends BaseFragment {
 		}
 
 		@Override
-		public Object instantiateItem(ViewGroup container, int position) {
+		public Object instantiateItem(ViewGroup container, final int position) {
 			ImageView imageView = new ImageView(mActivity);
 			imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 			if (topCourseList != null) {
 				bitmapUtils.display(imageView, topCourseList.get(position).topCourseImgUrl, config);
 			} else {
 				//获取网络数据失败时 显示默认图片
-				imageView.setImageDrawable(getResources().getDrawable(R.drawable.top_course_default));
+				imageView.setImageDrawable(getResources().getDrawable(R.drawable.course_default_bg_outline));
 			}
 
 			container.addView(imageView);
+			imageView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent();
+					intent.setClass(mActivity, VideoActivity.class);
+					intent.putExtra("id", topCourseList.get(position).getCourseId());
+					startActivity(intent);
+				}
+			});
 			return imageView;
 		}
 
@@ -345,6 +379,7 @@ public class CourseFragment extends BaseFragment {
 		public void destroyItem(ViewGroup container, int position, Object object) {
 			container.removeView((View) object);
 		}
+
 	}
 
 	/**
@@ -356,7 +391,8 @@ public class CourseFragment extends BaseFragment {
 
 		public ListCourseAdapter() {
 			bitmapUtils = new BitmapUtils(mActivity);
-			bitmapUtils.configDefaultLoadingImage(R.drawable.pic_item_list_default);//设置默认显示的图片
+			bitmapUtils.configDefaultLoadingImage(R
+					.drawable.course_default_bg2);//设置默认显示的图片
 		}
 
 		@Override

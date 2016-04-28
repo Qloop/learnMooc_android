@@ -24,7 +24,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 	private List<?> mData;
 	private final BitmapUtils bitmapUtils;
 
-	public RecyclerAdapter(List<?> data,Context context) {
+	public RecyclerAdapter(List<?> data, Context context) {
 		mData = data;
 		bitmapUtils = new BitmapUtils(context);
 		bitmapUtils.configDefaultLoadingImage(R.drawable.img_artilce);//默认加载图
@@ -80,7 +80,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 		ArticleList.ArticleInfo articleInfo = (ArticleList.ArticleInfo) mData.get(position);
 
 		holder.tvTitle.setText(articleInfo.getTitle());
-		holder.tvClassify.setText(articleInfo.getClassify());
+		holder.tvClassify.setText(articleInfo.getClassifyName());
 		holder.tvNum.setText(articleInfo.getNum() + "");
 		bitmapUtils.display(holder.ivPic, articleInfo.getImg());
 

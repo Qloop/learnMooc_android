@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -35,6 +36,8 @@ public class CourseHistoryActivity extends BaseActivity {
 	private ListView mListView;
 	private String mUrl;
 	private ArrayList<CourseHistory.HistoryData> historyData;
+	private ViewStub viewStub;
+	private String cache;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +51,13 @@ public class CourseHistoryActivity extends BaseActivity {
 	@Override
 	public void initViews() {
 		mListView = (ListView) findViewById(R.id.lv_timeTree);
+		viewStub = (ViewStub) findViewById(R.id.vs_net_error);
 	}
 
 
 	private void initData() {
 		mUrl = GlobalConstants.GET_HISTORY_COURSE;
-		String cache = UserInfoCacheUtils.getCache(mUrl, CourseHistoryActivity.this);
+		cache = UserInfoCacheUtils.getCache(mUrl, CourseHistoryActivity.this);
 		if (!TextUtils.isEmpty(cache)) {
 			parseData(cache);
 		}
@@ -81,7 +85,12 @@ public class CourseHistoryActivity extends BaseActivity {
 			@Override
 			public void onFailure(HttpException e, String s) {
 				e.printStackTrace();
-				ToastUtils.showToastShort(CourseHistoryActivity.this, "网络链接失败");
+				if (!TextUtils.isEmpty(cache)) {
+					ToastUtils.showToastShort(CourseHistoryActivity.this, "网络链接失败");
+				} else {
+					viewStub.inflate().setVisibility(View.VISIBLE);
+				}
+
 			}
 		});
 	}
@@ -146,7 +155,7 @@ public class CourseHistoryActivity extends BaseActivity {
 				//根据llContent的高度动态给llBlank设置高度 将下边的线撑起来
 				holder.llContent.measure(0, 0);
 				int measuredHeight = holder.llContent.getMeasuredHeight();
-				holder.llBlank.setLayoutParams(new LinearLayout.LayoutParams(0,measuredHeight + 1));
+				holder.llBlank.setLayoutParams(new LinearLayout.LayoutParams(0, measuredHeight + 1));
 			}
 			return convertView;
 		}

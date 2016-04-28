@@ -16,7 +16,7 @@ public class GlobalConstants {
 	public final static String GET_MAIN_COURSE_URL = "http://120.27.47.134/mainCourse.json";
 	public final static String GET_COUTSE_CLASSIFY = "http://120.27.47.134/courseClassify.json";
 	public final static String GET_HISTORY_COURSE = "http://120.27.47.134/historyCourse.json";
-	public final static String GET_ARTICLE_LIST = "http://120.27.47.134/article/articleList.json";
+//	public final static String GET_ARTICLE_LIST = "http://120.27.47.134/article/articleList.json";
 	public final static String GET_RANK_LIST = "http://120.27.47.134/rank/rankInfo.json";
 	public final static String GET_VIDEO = "http://120.27.47.134/video/courseContent.json";
 	public final static String GET_VIDEO_CHAPTERINFO = "http://120.27.47.134/video/chapterInfo.json";
@@ -26,6 +26,12 @@ public class GlobalConstants {
 	public final static String GET_EXPERT_LIST = "http://120.27.47.134/expert/expertInfo.json";
 	public final static String GET_NOTE_LIST = "http://120.27.47.134/note/noteInfo.json";
 	public final static String GET_NOTE_DETAIL = "http://120.27.47.134/note/noteDetail.json";
+	public final static String GET_SCORE_LIST = "http://120.27.47.134/score/scoreList.json";
+
+
+	public final static String BASE_URL = "http://120.27.47.134:8080";
+	public final static String GET_ARTICLE_LIST = BASE_URL + "/articles";
+
 
 }
 
