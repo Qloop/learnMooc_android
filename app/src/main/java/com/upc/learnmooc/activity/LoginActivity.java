@@ -72,7 +72,6 @@ public class LoginActivity extends BaseActivity {
 	 * 跳转注册界面
 	 */
 	public void TurnToRegister(View view) {
-		ToastUtils.showToastLong(LoginActivity.this, "跳注册");
 		startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
 		finish();
 	}

@@ -52,7 +52,7 @@ public class CollectedCourseActivity extends BaseActivity {
 	}
 
 	private void initData() {
-		mUrl = GlobalConstants.GET_MAIN_COURSE_URL;
+		mUrl = GlobalConstants.GET_COLLECTED_COURSE;
 		getDataFromServer();
 
 	}

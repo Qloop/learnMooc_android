@@ -8,7 +8,7 @@
                      android:top="5dp"
                      android:left="5dp"
                      android:right="5dp"/>
-            <solid android:color="#50cccc"/>
+            <solid android:color="#56abe4"/>
 
         </shape>
     </item>
@@ -20,7 +20,7 @@
                      android:top="5dp"
                      android:left="5dp"
                      android:right="5dp"/>
-            <solid android:color="#00cccc"/>
+            <solid android:color="#46abe4"/>
 
         </shape>
     </item>

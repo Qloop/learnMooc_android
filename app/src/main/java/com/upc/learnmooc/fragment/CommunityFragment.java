@@ -1,10 +1,14 @@
 package com.upc.learnmooc.fragment;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -12,6 +16,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.upc.learnmooc.R;
+import com.upc.learnmooc.utils.SystemBarTintManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +48,13 @@ public class CommunityFragment extends BaseFragment {
 
 	@Override
 	public View initViews() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			setTranslucentStatus(true);
+			SystemBarTintManager tintManager = new SystemBarTintManager(mActivity);
+			tintManager.setStatusBarTintEnabled(true);
+			tintManager.setStatusBarTintResource(R.color.status_color);//通知栏所需颜色
+		}
+
 		View view = View.inflate(mActivity, R.layout.community_fragment, null);
 		//注入view和事件
 		ViewUtils.inject(this, view);
@@ -117,6 +129,19 @@ public class CommunityFragment extends BaseFragment {
 		tvArticle.setTextColor(getResources().getColor(R.color.colorWhite));
 		tvRank.setTextColor(getResources().getColor(R.color.normal_community_word));
 		return view;
+	}
+
+	@TargetApi(19)
+	private void setTranslucentStatus(boolean on) {
+		Window win = mActivity.getWindow();
+		WindowManager.LayoutParams winParams = win.getAttributes();
+		final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+		if (on) {
+			winParams.flags |= bits;
+		} else {
+			winParams.flags &= ~bits;
+		}
+		win.setAttributes(winParams);
 	}
 
 	@Override

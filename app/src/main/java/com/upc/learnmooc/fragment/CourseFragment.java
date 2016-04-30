@@ -1,6 +1,8 @@
 package com.upc.learnmooc.fragment;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -8,6 +10,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -31,6 +35,7 @@ import com.upc.learnmooc.activity.VideoActivity;
 import com.upc.learnmooc.domain.MainCourse;
 import com.upc.learnmooc.global.GlobalConstants;
 import com.upc.learnmooc.utils.CacheUtils;
+import com.upc.learnmooc.utils.SystemBarTintManager;
 import com.upc.learnmooc.utils.ToastUtils;
 import com.upc.learnmooc.view.RefreshListView;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -72,6 +77,12 @@ public class CourseFragment extends BaseFragment {
 
 	@Override
 	public View initViews() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			setTranslucentStatus(true);
+			SystemBarTintManager tintManager = new SystemBarTintManager(mActivity);
+			tintManager.setStatusBarTintEnabled(true);
+			tintManager.setStatusBarTintResource(R.color.status_color);//通知栏所需颜色
+		}
 		View view = View.inflate(mActivity, R.layout.course_fragment, null);
 		View heardView = View.inflate(mActivity, R.layout.heard_course_listview, null);
 
@@ -118,6 +129,19 @@ public class CourseFragment extends BaseFragment {
 			}
 		});
 		return view;
+	}
+
+	@TargetApi(19)
+	private void setTranslucentStatus(boolean on) {
+		Window win = mActivity.getWindow();
+		WindowManager.LayoutParams winParams = win.getAttributes();
+		final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+		if (on) {
+			winParams.flags |= bits;
+		} else {
+			winParams.flags &= ~bits;
+		}
+		win.setAttributes(winParams);
 	}
 
 	@Override

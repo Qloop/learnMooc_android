@@ -168,20 +168,22 @@ public class ChangeAvatarActivity extends Activity {
 		HttpUtils httpUtils = new HttpUtils();
 		httpUtils.configTimeout(5000);
 		RequestParams params = new RequestParams();
-		params.addBodyParameter(img.getPath().replace("/", ""), img);
+		params.addBodyParameter("avatar", img);
+//		params.addBodyParameter(img.getPath().replace("/", ""), img);
 		String mUrl = null;
 		httpUtils.send(HttpRequest.HttpMethod.POST, mUrl, params, new RequestCallBack<String>() {
 			@Override
-			public void onSuccess(ResponseInfo<String> responseInfo) {
-				ToastUtils.showToastLong(ChangeAvatarActivity.this,"修改成功 ^_^");
+			public void onSuccess(ResponseInfo<String> responseInfo) {//成功返回success
+				ToastUtils.showToastLong(ChangeAvatarActivity.this, "修改成功 ^_^");
 				//上传成功后 更新本地缓存
-				UserInfoCacheUtils.setString(ChangeAvatarActivity.this,"avatar",responseInfo.result);
+				UserInfoCacheUtils.setString(ChangeAvatarActivity.this, "avatar", responseInfo.result);
 				finish();
 			}
 
 			@Override
-			public void onFailure(HttpException e, String s) {
+			public void onFailure(HttpException e, String s) {//失败返回failed
 				e.printStackTrace();
+				ToastUtils.showToastLong(ChangeAvatarActivity.this, "修改出错 T.T");
 				finish();
 			}
 		});

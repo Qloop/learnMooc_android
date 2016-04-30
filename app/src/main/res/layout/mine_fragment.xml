@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:background="@color/colorWhite"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/colorWhite"
               android:clipToPadding="true"
               android:orientation="vertical">
 
@@ -30,7 +30,7 @@
             android:src="@drawable/mine_setting"/>
 
         <com.upc.learnmooc.view.CircleImageView
-            android:id="@+id/iv_avator"
+            android:id="@+id/iv_avatar"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
@@ -41,7 +41,7 @@
             android:id="@+id/tv_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_avator"
+            android:layout_below="@+id/iv_avatar"
             android:layout_centerHorizontal="true"
             android:paddingTop="5dp"
             android:text="J漫步"
@@ -70,6 +70,7 @@
                     android:textSize="13sp"/>
 
                 <TextView
+                    android:id="@+id/tv_learn_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
@@ -99,6 +100,7 @@
                     android:textSize="13sp"/>
 
                 <TextView
+                    android:id="@+id/tv_exp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
@@ -128,6 +130,7 @@
                     android:textSize="13sp"/>
 
                 <TextView
+                    android:id="@+id/tv_comment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
@@ -141,14 +144,14 @@
     </RelativeLayout>
 
     <GridView
-        android:padding="20dp"
         android:id="@+id/gv_menu"
-        android:stretchMode="columnWidth"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:horizontalSpacing="20dp"
-        android:verticalSpacing="45dp"
-        android:numColumns="3"/>
+        android:numColumns="3"
+        android:padding="20dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="45dp"/>
 
 </LinearLayout>

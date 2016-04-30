@@ -29,5 +29,5 @@
         android:paddingTop="10dp"
         android:textColor="@android:color/darker_gray"
         android:textSize="16sp"
-        tools:text="快去下载喜欢的课程吧"/>
+        tools:text="快去收藏喜欢的文章吧"/>
 </LinearLayout>

@@ -7,8 +7,8 @@ package com.upc.learnmooc.global;
 public class GlobalConstants {
 
 	public final static String SERVER_URL = "http://120.27.47.134";
-	public final static String REGISTER_URL = "http://10.0.3.2:8080/create";
-	public final static String LOGIN_URL = "http://10.0.3.2:8080/login";
+//	public final static String REGISTER_URL = "http://10.0.3.2:8080/create";
+//	public final static String LOGIN_URL = "http://10.0.3.2:8080/login";
 	public final static String GET_USER_INFO = "http://10.0.3.2:8080/user_info";
 	//	public final static String SERVER_URL = "http://10.0.3.2:8050/VoicePrint";
 //	public final static String SERVER_URL = "http://120.27.47.134/VoicePrint";
@@ -27,11 +27,19 @@ public class GlobalConstants {
 	public final static String GET_NOTE_LIST = "http://120.27.47.134/note/noteInfo.json";
 	public final static String GET_NOTE_DETAIL = "http://120.27.47.134/note/noteDetail.json";
 	public final static String GET_SCORE_LIST = "http://120.27.47.134/score/scoreList.json";
+	public final static String GET_SEARCH_RESULT = "http://120.27.47.134/searchResult/searchResult.json";
+	public final static String GET_USER_SETTINGS = "http://120.27.47.134/userSetings.json";
+	public final static String GET_COLLECTED_COURSE = "http://120.27.47.134/collectedCourseList.json";
+	public final static String GET_COLLECTED_ARTICLE = "http://120.27.47.134/collectedArticleList.json";
+	public final static String GET_SELF_ARTICLE = "http://120.27.47.134/selfArticleList.json";
+
+
 
 
 	public final static String BASE_URL = "http://120.27.47.134:8080";
+	public final static String REGISTER_URL = BASE_URL + "/create";
+	public final static String LOGIN_URL = BASE_URL + "/login";
 	public final static String GET_ARTICLE_LIST = BASE_URL + "/articles";
-
 
 }
 

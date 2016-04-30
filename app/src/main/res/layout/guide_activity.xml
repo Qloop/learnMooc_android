@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:paddingBottom="70dp">
+            android:paddingBottom="80dp">
 
             <LinearLayout
                 android:id="@+id/point_gray"
@@ -44,7 +44,7 @@
         android:layout_gravity="bottom"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:paddingBottom="5dp"
+        android:paddingBottom="10dp"
         android:weightSum="2">
 
         <Button
@@ -58,7 +58,8 @@
             android:onClick="login"
             android:text="登录"
             android:textColor="@color/colorWhite"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:visibility="invisible"/>
 
         <Button
             android:id="@+id/btn_register"
@@ -71,6 +72,7 @@
             android:onClick="register"
             android:text="注册"
             android:textColor="@color/colorBule"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:visibility="invisible"/>
     </LinearLayout>
 </FrameLayout>

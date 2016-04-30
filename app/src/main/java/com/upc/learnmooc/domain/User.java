@@ -21,22 +21,32 @@ public class User {
 	public int status;//账户状态 1:正常 3 未激活
 	public Date createDate;
 
-	@Override
-	public String toString() {
-		return "User{" +
-				"id=" + id +
-				", result='" + result + '\'' +
-				", password='" + password + '\'' +
-				", mail='" + mail + '\'' +
-				", nickname='" + nickname + '\'' +
-				", avatar='" + avatar + '\'' +
-				", name='" + name + '\'' +
-				", roleType=" + roleType +
-				", no='" + no + '\'' +
-				", major='" + major + '\'' +
-				", status=" + status +
-				", createDate=" + createDate +
-				'}';
+	public int learnTime;
+	public int exp;
+	public int commentNum;
+
+	public void setLearnTime(int learnTime) {
+		this.learnTime = learnTime;
+	}
+
+	public void setExp(int exp) {
+		this.exp = exp;
+	}
+
+	public void setCommentNum(int commentNum) {
+		this.commentNum = commentNum;
+	}
+
+	public int getLearnTime() {
+		return learnTime;
+	}
+
+	public int getExp() {
+		return exp;
+	}
+
+	public int getCommentNum() {
+		return commentNum;
 	}
 
 	public String getAcademy() {

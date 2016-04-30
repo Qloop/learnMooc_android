@@ -38,6 +38,7 @@ public class CourseHistoryActivity extends BaseActivity {
 	private ArrayList<CourseHistory.HistoryData> historyData;
 	private ViewStub viewStub;
 	private String cache;
+	private ViewStub vsBlank;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class CourseHistoryActivity extends BaseActivity {
 	public void initViews() {
 		mListView = (ListView) findViewById(R.id.lv_timeTree);
 		viewStub = (ViewStub) findViewById(R.id.vs_net_error);
+		vsBlank = (ViewStub) findViewById(R.id.vs_blank_content);
 	}
 
 
@@ -101,6 +103,12 @@ public class CourseHistoryActivity extends BaseActivity {
 		historyData = courseHistory.historyData;
 		if (historyData != null) {
 			mListView.setAdapter(new MyTimeListAdapater());
+		}else {
+			View inflate = vsBlank.inflate();
+			TextView tvHint = (TextView)inflate.findViewById(R.id.tv_hint);
+			TextView tvHintDetail = (TextView)inflate.findViewById(R.id.tv_hint_detail);
+			tvHint.setText("没有学习记录");
+			tvHint.setText("快点开始愉快的学习吧*.*");
 		}
 	}
 

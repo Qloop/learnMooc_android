@@ -35,7 +35,7 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
-        android:onClick="ToCourseHistory"
+        android:onClick="ToSearch"
         android:padding="16dp"
         android:src="@drawable/course_search"/>
 </RelativeLayout>

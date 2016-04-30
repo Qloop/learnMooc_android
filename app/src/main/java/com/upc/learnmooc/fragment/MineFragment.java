@@ -1,14 +1,27 @@
 package com.upc.learnmooc.fragment;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.lidroid.xutils.BitmapUtils;
+import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
@@ -21,6 +34,11 @@ import com.upc.learnmooc.activity.MineNoteActivity;
 import com.upc.learnmooc.activity.ScoreActivity;
 import com.upc.learnmooc.activity.SelfArticleActivity;
 import com.upc.learnmooc.activity.SettingsActivity;
+import com.upc.learnmooc.domain.User;
+import com.upc.learnmooc.global.GlobalConstants;
+import com.upc.learnmooc.utils.SystemBarTintManager;
+import com.upc.learnmooc.utils.UserInfoCacheUtils;
+import com.upc.learnmooc.view.CircleImageView;
 
 /**
  * 个人主页
@@ -54,14 +72,30 @@ public class MineFragment extends BaseFragment {
 	private Shimmer shimmer;
 	private ViewHolder holder;
 
+	@ViewInject(R.id.iv_avatar)
+	private CircleImageView ivAvatar;
+	@ViewInject(R.id.tv_nickname)
+	private TextView tvNickname;
+	@ViewInject(R.id.tv_learn_time)
+	private TextView tvLearnTime;
+	@ViewInject(R.id.tv_exp)
+	private TextView tvExp;
+	@ViewInject(R.id.tv_comment)
+	private TextView tvComment;
+	private String mUrl = GlobalConstants.GET_USER_SETTINGS;
+
 	@Override
 	public View initViews() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			setTranslucentStatus(true);
+			SystemBarTintManager tintManager = new SystemBarTintManager(mActivity);
+			tintManager.setStatusBarTintEnabled(true);
+			tintManager.setStatusBarTintResource(R.color.experiment_statusbar_color);//通知栏所需颜色
+		}
+
 		View view = View.inflate(mActivity, R.layout.mine_fragment, null);
 		//注入view和事件
 		ViewUtils.inject(this, view);
-//		listData = new ArrayList<>();
-//		SimpleAdapter gridViewAdapter = new SimpleAdapter(mActivity, getData(), R.layout.item_mine_gridview,
-//				new String[]{"iv_pic", "tv_name"}, new int[]{R.id.iv_pic, R.id.tv_name});
 		mGridView.setAdapter(new MyGridViewAdapter());
 		shimmer = new Shimmer();
 		mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -108,31 +142,56 @@ public class MineFragment extends BaseFragment {
 		return view;
 	}
 
-//	@TargetApi(19)
-//	private void setTranslucentStatus(boolean on) {
-//		Window win = mActivity.getWindow();
-//		WindowManager.LayoutParams winParams = win.getAttributes();
-//		final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-//		if (on) {
-//			winParams.flags |= bits;
-//		} else {
-//			winParams.flags &= ~bits;
-//		}
-//		win.setAttributes(winParams);
-//	}
+	@TargetApi(19)
+	private void setTranslucentStatus(boolean on) {
+		Window win = mActivity.getWindow();
+		WindowManager.LayoutParams winParams = win.getAttributes();
+		final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+		if (on) {
+			winParams.flags |= bits;
+		} else {
+			winParams.flags &= ~bits;
+		}
+		win.setAttributes(winParams);
+	}
 
-	/**
-	 * 封装gridview数据源
-	 */
-//	private List<Map<String, Object>> getData() {
-//		for (int i = 0; i < imgList.length; i++) {
-//			Map<String, Object> list = new HashMap<String, Object>();
-//			list.put("iv_pic", imgList[i]);
-//			list.put("tv_name", imgNameList[i]);
-//			listData.add(list);
-//		}
-//		return listData;
-//	}
+	@Override
+	public void initData() {
+		getDataFromServer();
+	}
+
+	private void getDataFromServer() {
+		HttpUtils httpUtils = new HttpUtils();
+		httpUtils.configTimeout(5000);
+		RequestParams params = new RequestParams();
+		params.addQueryStringParameter("userId", UserInfoCacheUtils.getInt(mActivity, "id", 0) + "");
+		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, new RequestCallBack<String>() {
+			@Override
+			public void onSuccess(ResponseInfo<String> responseInfo) {
+				parseData(responseInfo.result);
+			}
+
+			@Override
+			public void onFailure(HttpException e, String s) {
+
+			}
+		});
+
+	}
+
+	private void parseData(String result) {
+		Gson gson = new Gson();
+		User user = gson.fromJson(result, User.class);
+		if (user != null) {
+			BitmapUtils bitmapUtils = new BitmapUtils(mActivity);
+			bitmapUtils.configDefaultLoadingImage(R.drawable.defaultimage);
+			bitmapUtils.display(ivAvatar, user.getAvatar());
+			tvNickname.setText(user.getNickname());
+			tvLearnTime.setText(user.getLearnTime() + "");
+			tvExp.setText(user.getExp() + "");
+			tvComment.setText(user.getCommentNum() + "");
+		}
+	}
 
 	class MyGridViewAdapter extends BaseAdapter {
 

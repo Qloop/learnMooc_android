@@ -1,11 +1,15 @@
 package com.upc.learnmooc.fragment;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.text.format.Formatter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,6 +17,7 @@ import android.widget.TextView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.upc.learnmooc.R;
+import com.upc.learnmooc.utils.SystemBarTintManager;
 
 import java.io.File;
 
@@ -40,12 +45,31 @@ public class DownloadFragment extends BaseFragment {
 
 	@Override
 	public View initViews() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			setTranslucentStatus(true);
+			SystemBarTintManager tintManager = new SystemBarTintManager(mActivity);
+			tintManager.setStatusBarTintEnabled(true);
+			tintManager.setStatusBarTintResource(R.color.status_color);//通知栏所需颜色
+		}
 		View view = View.inflate(mActivity, R.layout.download_fragment, null);
 		viewStub = (ViewStub) view.findViewById(R.id.vs_blank_content);
 
 		//view和事件注入
 		ViewUtils.inject(this, view);
 		return view;
+	}
+
+	@TargetApi(19)
+	private void setTranslucentStatus(boolean on) {
+		Window win = mActivity.getWindow();
+		WindowManager.LayoutParams winParams = win.getAttributes();
+		final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+		if (on) {
+			winParams.flags |= bits;
+		} else {
+			winParams.flags &= ~bits;
+		}
+		win.setAttributes(winParams);
 	}
 
 	@Override

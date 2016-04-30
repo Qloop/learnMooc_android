@@ -168,4 +168,11 @@
     <string name="choseFromGallery">从相册选取</string>
     <string name="myMsg">我的消息</string>
     <string name="net_error">网络异常\n请检查网络</string>
+    <string name="cancel">取消</string>
+    <string name="search">搜索</string>
+    <string name="hintSearch">搜索课程</string>
+    <string name="searchHistory">历史搜索</string>
+    <string name="clearSearchHistory">清除历史搜索记录</string>
+    <string name="contactCourse">相关课程</string>
+    <string name="joinUs">加入我们:&#160; &#160; http://url.cn/28oUQkm#flyticket</string>
 </resources>

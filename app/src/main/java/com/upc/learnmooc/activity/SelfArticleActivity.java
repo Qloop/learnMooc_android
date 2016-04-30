@@ -74,8 +74,8 @@ public class SelfArticleActivity extends AppCompatActivity {
 
 	private void initData() {
 		mUrlLsit = new ArrayList<>();
-		mUrlLsit.add(GlobalConstants.GET_ARTICLE_LIST);
-		mUrlLsit.add(GlobalConstants.GET_ARTICLE_LIST);
+		mUrlLsit.add(GlobalConstants.GET_COLLECTED_ARTICLE);
+		mUrlLsit.add(GlobalConstants.GET_SELF_ARTICLE);
 	}
 
 	private void setupViewPager() {

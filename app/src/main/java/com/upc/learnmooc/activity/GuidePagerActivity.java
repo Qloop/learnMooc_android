@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,7 +40,7 @@ public class GuidePagerActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+//		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.guide_activity);
 
 		vpGuide = (ViewPager) findViewById(R.id.vp_guidePager);
@@ -154,14 +153,14 @@ public class GuidePagerActivity extends Activity {
 		// 某个页面被选中
 		@Override
 		public void onPageSelected(int position) {
-//			if (position == mImagIds.length - 1) {// 最后一个
-//				//显示登录 注册按钮
-//				btnLogin.setVisibility(View.VISIBLE);
-//				btnRegister.setVisibility(View.VISIBLE);
-//			} else {
-//				btnLogin.setVisibility(View.INVISIBLE);
-//				btnRegister.setVisibility(View.INVISIBLE);
-//			}
+			if (position == mImagIds.length - 1) {// 最后一个
+				//显示登录 注册按钮
+				btnLogin.setVisibility(View.VISIBLE);
+				btnRegister.setVisibility(View.VISIBLE);
+			} else {
+				btnLogin.setVisibility(View.INVISIBLE);
+				btnRegister.setVisibility(View.INVISIBLE);
+			}
 		}
 
 		// 滑动状态发生变化

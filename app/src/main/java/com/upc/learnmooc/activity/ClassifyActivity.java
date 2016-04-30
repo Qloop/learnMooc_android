@@ -58,6 +58,14 @@ public class ClassifyActivity extends BaseActivity {
 	}
 
 	/**
+	 * 搜索
+	 */
+	public void ToSearch(View view) {
+		startActivity(new Intent(ClassifyActivity.this, SearchListActivity.class));
+		finish();
+	}
+
+	/**
 	 * 初始化数据
 	 */
 	private void initData() {

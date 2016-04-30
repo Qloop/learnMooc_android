@@ -27,7 +27,14 @@
     <color name="normal_community_word">#89ffffff</color>
     <color name="video_word_normal_color">#84817F</color>
     <color name="video_word_foused_color">#56abe4</color>
-    <color name="experiment_statusbar_color">#89000000</color>
+    <color name="experiment_statusbar_color">#59000000</color>
     <color name="top_status_color">#26000000</color>
     <color name="light_black_color">#3B3B3B</color>
+
+    <!-- 搜索-->
+    <color name="list_item_focus">#0a000000</color>
+    <color name="white_alpha_percent_45">#73ffffff</color>
+    <color name="text_gray">#7b403b37</color>
+    <color name="base_red">#fffb6655</color>
+    <color name="default_line_color">#e6e6e6</color>
 </resources>

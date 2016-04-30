@@ -281,7 +281,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 	 * 跳课程搜索
 	 */
 	public void ToSearchCourse(View view) {
-//		startActivity(new Intent(mActivity, ClassifyActivity.class));
+		startActivity(new Intent(MainActivity.this, SearchListActivity.class));
 	}
 
 	/**
