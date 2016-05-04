@@ -164,8 +164,8 @@ public class MineFragment extends BaseFragment {
 		HttpUtils httpUtils = new HttpUtils();
 		httpUtils.configTimeout(5000);
 		RequestParams params = new RequestParams();
-		params.addQueryStringParameter("userId", UserInfoCacheUtils.getInt(mActivity, "id", 0) + "");
-		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, new RequestCallBack<String>() {
+		params.addQueryStringParameter("userId", UserInfoCacheUtils.getLong(mActivity, "id", 0) + "");
+		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, params, new RequestCallBack<String>() {
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				parseData(responseInfo.result);
@@ -173,7 +173,7 @@ public class MineFragment extends BaseFragment {
 
 			@Override
 			public void onFailure(HttpException e, String s) {
-
+				e.printStackTrace();
 			}
 		});
 
@@ -185,11 +185,11 @@ public class MineFragment extends BaseFragment {
 		if (user != null) {
 			BitmapUtils bitmapUtils = new BitmapUtils(mActivity);
 			bitmapUtils.configDefaultLoadingImage(R.drawable.defaultimage);
-			bitmapUtils.display(ivAvatar, user.getAvatar());
-			tvNickname.setText(user.getNickname());
-			tvLearnTime.setText(user.getLearnTime() + "");
-			tvExp.setText(user.getExp() + "");
-			tvComment.setText(user.getCommentNum() + "");
+			bitmapUtils.display(ivAvatar, UserInfoCacheUtils.getString(mActivity, "avatar", null));
+			tvNickname.setText(UserInfoCacheUtils.getString(mActivity, "nickname", null));
+			tvLearnTime.setText(UserInfoCacheUtils.getLong(mActivity, "learnTime", 0) + "");
+			tvExp.setText(UserInfoCacheUtils.getLong(mActivity, "exp", 0) + "");
+			tvComment.setText(user.getCommentNum());
 		}
 	}
 

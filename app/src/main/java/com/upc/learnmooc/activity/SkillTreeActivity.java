@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewStub;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -83,6 +82,7 @@ public class SkillTreeActivity extends FragmentActivity {
 		HttpUtils httpUtils = new HttpUtils();
 		httpUtils.configCurrentHttpCacheExpiry(5 * 1000);
 		httpUtils.configTimeout(1000 * 5);
+
 		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, new RequestCallBack<String>() {
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {

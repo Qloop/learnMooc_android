@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
@@ -18,6 +19,7 @@ import com.upc.learnmooc.R;
 import com.upc.learnmooc.domain.NoteDetail;
 import com.upc.learnmooc.global.GlobalConstants;
 import com.upc.learnmooc.utils.ToastUtils;
+import com.upc.learnmooc.utils.UserInfoCacheUtils;
 
 import java.util.ArrayList;
 
@@ -31,10 +33,11 @@ public class NoteDetailActivity extends BaseActivity {
 
 	private ListView mListView;
 	private String mUrl;
-	private int courseId;
+	private String courseName;
 	private ArrayList<NoteDetail.NoteContent> noteContent;
 	private SweetAlertDialog pDialog;
 	private ListViewAdapter mAdapter;
+	private String url;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,8 @@ public class NoteDetailActivity extends BaseActivity {
 
 	private void initData() {
 		mUrl = GlobalConstants.GET_NOTE_DETAIL;
-		courseId = getIntent().getIntExtra("courseId", -1);
+		url = GlobalConstants.REMOVE_NOTE;
+		courseName = getIntent().getStringExtra("courseName");
 		getDataFromServer();
 	}
 
@@ -62,11 +66,11 @@ public class NoteDetailActivity extends BaseActivity {
 		httpUtils.configCurrentHttpCacheExpiry(5 * 1000);
 		httpUtils.configTimeout(1000 * 5);
 		//GET参数为用户id 和 courseId
-//		RequestParams params = new RequestParams();
-//		params.addQueryStringParameter("id", UserInfoCacheUtils.getInt(CollectedCourseActivity.this,"id",0)+"");
-//		params.addQueryStringParameter("courseId",courseId + "");
+		RequestParams params = new RequestParams();
+		params.addQueryStringParameter("userId", UserInfoCacheUtils.getLong(NoteDetailActivity.this, "id", 0) + "");
+		params.addQueryStringParameter("courseName", courseName);
 
-		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, new RequestCallBack<String>() {
+		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, params, new RequestCallBack<String>() {
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				parseData(responseInfo.result);
@@ -124,7 +128,7 @@ public class NoteDetailActivity extends BaseActivity {
 			}
 
 			final NoteDetail.NoteContent noteContentData = noteContent.get(position);
-			holder.tvTime.setText(noteContentData.getTime());
+			holder.tvTime.setText(noteContentData.getTime().substring(0,16));
 			holder.tvContent.setText(noteContentData.getContent());
 			holder.ivDel.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -159,22 +163,18 @@ public class NoteDetailActivity extends BaseActivity {
 			@Override
 			public void onClick(SweetAlertDialog sweetAlertDialog) {
 				pDialog.dismiss();
-				//post到后台 删除对应的note记录
+				// 删除对应的note记录
 				HttpUtils httpUtils = new HttpUtils();
 				httpUtils.configCurrentHttpCacheExpiry(5 * 1000);
 				httpUtils.configTimeout(1000 * 5);
-				//POST参数为用户id 和 courseId noteId
-//		RequestParams params = new RequestParams();
-//		params.addQueryStringParameter("id", UserInfoCacheUtils.getInt(CollectedCourseActivity.this,"id",0)+"");
-//		params.addQueryStringParameter("courseId",courseId + "");
-//		params.addQueryStringParameter("noteId",noteContent.get(position).getNoteId() + "");
+				// noteId
+				RequestParams params = new RequestParams();
+				params.addQueryStringParameter("noteId", noteContent.get(position).getNoteId() + "");
 
-				//mUrl要换
-
-				httpUtils.send(HttpRequest.HttpMethod.POST, mUrl, new RequestCallBack<String>() {
+				httpUtils.send(HttpRequest.HttpMethod.GET, url, params, new RequestCallBack<String>() {
 					@Override
 					public void onSuccess(ResponseInfo<String> responseInfo) {
-						if(responseInfo.result.equals("删除成功")){
+						if (responseInfo.result.equals("success")) {
 							noteContent.remove(position);
 							mAdapter.notifyDataSetChanged();
 						}

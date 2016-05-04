@@ -3,6 +3,7 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:id="@+id/rl_exp"
                 android:background="@drawable/expert_item_bg_shape">
 
     <!-- 设置参照物 -->

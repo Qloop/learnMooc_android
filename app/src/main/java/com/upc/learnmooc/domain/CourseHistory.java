@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class CourseHistory {
 
-	public ArrayList<HistoryData> historyData;
+	public ArrayList<HistoryData> historyDate;
 
 	public class HistoryData {
 		public ArrayList<CourseData> historyCourse;

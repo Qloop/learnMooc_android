@@ -66,7 +66,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/global_search_action_bar_rl">
 
         <LinearLayout
@@ -142,12 +142,14 @@
             android:id="@+id/vs_net_error"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout="@layout/net_error"/>
 
         <ViewStub
             android:id="@+id/vs_blank_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout="@layout/blank_content"/>
     </FrameLayout>
 

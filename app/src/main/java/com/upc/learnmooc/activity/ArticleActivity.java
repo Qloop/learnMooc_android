@@ -15,7 +15,14 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.upc.learnmooc.R;
+import com.upc.learnmooc.global.GlobalConstants;
 import com.upc.learnmooc.utils.UserInfoCacheUtils;
 
 import cn.sharesdk.framework.ShareSDK;
@@ -33,6 +40,8 @@ public class ArticleActivity extends AppCompatActivity {
 	private ImageView ivShare;
 	private String url;
 	private FloatingActionButton fab;
+	private String rmCollectionUrl = GlobalConstants.RM_ARTICLE_COLLECTION;
+	private String collectionUrl = GlobalConstants.POST_ARTICLE_COLLECTION;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +147,7 @@ public class ArticleActivity extends AppCompatActivity {
 				Snackbar.make(fab, "已收藏！^_^~~~", Snackbar.LENGTH_LONG)
 						.setAction("Action", null).show();
 				//数据库保存用户收藏的文章
+				SubCollection();
 
 			} else {
 				System.out.println("文章 is " + article);
@@ -148,9 +158,10 @@ public class ArticleActivity extends AppCompatActivity {
 						.setAction("Action", null).show();
 
 				//数据库删除用户收藏的文章的记录
+				RemoveCollection();
 			}
 		} else {
-			if(article == null){
+			if (article == null) {
 
 				fab.setImageResource(R.drawable.collection);
 			} else {
@@ -158,6 +169,51 @@ public class ArticleActivity extends AppCompatActivity {
 			}
 		}
 
+	}
+
+	private void RemoveCollection() {
+		HttpUtils httpUtils = new HttpUtils();
+		httpUtils.configCurrentHttpCacheExpiry(5000);
+		httpUtils.configTimeout(5000);
+
+		final RequestParams params = new RequestParams();
+		params.addQueryStringParameter("userId", UserInfoCacheUtils.getLong(ArticleActivity.this, "id", 0) + "");
+		params.addQueryStringParameter("url", url);
+
+		httpUtils.send(HttpRequest.HttpMethod.GET, rmCollectionUrl, params, new RequestCallBack<String>() {
+			@Override
+			public void onSuccess(ResponseInfo<String> responseInfo) {
+//				ToastUtils.showToastLong(ArticleActivity.this,responseInfo.result);
+
+			}
+
+			@Override
+			public void onFailure(HttpException e, String s) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	private void SubCollection() {
+		HttpUtils httpUtils = new HttpUtils();
+		httpUtils.configCurrentHttpCacheExpiry(5000);
+		httpUtils.configTimeout(5000);
+
+		final RequestParams params = new RequestParams();
+		params.addQueryStringParameter("userId", UserInfoCacheUtils.getLong(ArticleActivity.this, "id", 0) + "");
+		params.addQueryStringParameter("url", url);
+
+		httpUtils.send(HttpRequest.HttpMethod.GET, collectionUrl, params, new RequestCallBack<String>() {
+			@Override
+			public void onSuccess(ResponseInfo<String> responseInfo) {
+
+			}
+
+			@Override
+			public void onFailure(HttpException e, String s) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**

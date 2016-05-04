@@ -1,5 +1,6 @@
 package com.upc.learnmooc.fragment;
 
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -11,6 +12,7 @@ import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
@@ -28,19 +30,21 @@ import java.util.ArrayList;
  * 课程章节签
  * Created by Explorer on 2016/3/13.
  */
-public class VideoChapterFragment extends BaseFragment implements VDVideoExtListeners.OnVDVideoPlaylistListener{
+public class VideoChapterFragment extends BaseFragment implements VDVideoExtListeners.OnVDVideoPlaylistListener {
 
 	@ViewInject(R.id.elv_chapter)
 	private ExpandableListView mEListView;
 	private String mUrl = GlobalConstants.GET_VIDEO_CHAPTERINFO;
 	private ArrayList<VideoChapter.ChapterInfo> chapterInfos;
 	private VDVideoView mVDVideoView;
+	private long courseId;
 
 	@Override
 	public View initViews() {
 		View view = View.inflate(mActivity, R.layout.video_chapter_fragment, null);
 		ViewUtils.inject(this, view);
-
+		Bundle arguments = getArguments();
+		courseId = arguments.getLong("id", 1);
 		return view;
 	}
 
@@ -53,8 +57,9 @@ public class VideoChapterFragment extends BaseFragment implements VDVideoExtList
 		HttpUtils httpUtils = new HttpUtils();
 		httpUtils.configCurrentHttpCacheExpiry(5000);
 		httpUtils.configTimeout(5000);
-
-		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, new RequestCallBack<String>() {
+		RequestParams params = new RequestParams();
+		params.addQueryStringParameter("courseid", courseId + "");
+		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, params, new RequestCallBack<String>() {
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				parseDate(responseInfo.result);

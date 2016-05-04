@@ -6,13 +6,14 @@
               android:orientation="horizontal"
               android:paddingLeft="20dp"
               android:paddingRight="20dp"
+              xmlns:tools="http://schemas.android.com/tools"
               android:paddingTop="20dp">
 
     <com.upc.learnmooc.view.CircleImageView
         android:id="@+id/civ_avatar"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:src="@drawable/defaultimage"
+        android:src="@drawable/default_avatar"
         app:borderWith="0dp"/>
 
     <LinearLayout
@@ -28,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="漫步"
+            tools:text="漫步"
             android:textSize="12sp"/>
 
         <TextView
@@ -37,13 +38,13 @@
             android:layout_height="wrap_content"
             android:lineSpacingExtra="2dp"
             android:paddingTop="15dp"
-            android:text="来获得对属性集的引用，然后就可以用“a”的各种方法来获取相应的属性值了。这里需要注意的是，如果使用的方法和获取值的类型不对的话，则会返回默认值。因此，如果一个属性是带两个及以上不用类型的属性，需要做多次判断，知道读取完毕后才能判断应该赋予何值。当然，在取完值的时候别忘了回收资源哦！"
+            tools:text="来获得对属性集的引用，然后就可以用“a”的各种方法来获取相应的属性值了。这里需要注意的是，如果使用的方法和获取值的类型不对的话，则会返回默认值。因此，如果一个属性是带两个及以上不用类型的属性，需要做多次判断，知道读取完毕后才能判断应该赋予何值。当然，在取完值的时候别忘了回收资源哦！"
             android:textColor="#262626"
             android:textSize="12sp"/>
 
         <View
             android:layout_width="wrap_content"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:layout_marginTop="30dp"
             android:background="#CCCCCC"/>
     </LinearLayout>

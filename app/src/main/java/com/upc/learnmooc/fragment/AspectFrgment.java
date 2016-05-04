@@ -1,9 +1,11 @@
 package com.upc.learnmooc.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.paging.gridview.PagingBaseAdapter;
 import com.paging.gridview.PagingGridView;
 import com.upc.learnmooc.R;
+import com.upc.learnmooc.activity.VideoActivity;
 import com.upc.learnmooc.domain.AspectInfo;
 import com.upc.learnmooc.utils.ToastUtils;
 
@@ -54,10 +57,10 @@ public class AspectFrgment extends BaseFragment {
 		mGridView.setPagingableListener(new PagingGridView.Pagingable() {
 			@Override
 			public void onLoadMoreItems() {
-				if(mMoreUrl != null){
+				if (mMoreUrl != null) {
 					getMoreDataFromServer();
-				}else {
-					ToastUtils.showToastShort(mActivity,"到底啦-。-");
+				} else {
+					ToastUtils.showToastShort(mActivity, "到底啦-。-");
 				}
 			}
 		});
@@ -103,13 +106,24 @@ public class AspectFrgment extends BaseFragment {
 			aspectList = aspectInfo.aspectInfo;
 			mAdapder = new MyPagingAdaper();
 			mGridView.setAdapter(mAdapder);
+			mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					Intent intent = new Intent();
+					intent.setClass(mActivity, VideoActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putLong("id", aspectList.get(position).getCourseId());
+					intent.putExtras(bundle);
+					startActivity(intent);
+				}
+			});
 		} else {
 			ArrayList<AspectInfo.Aspect> aspectInfo1 = aspectInfo.aspectInfo;
 //			mGridView.onFinishLoading(mGridView.hasMoreItems(), aspectInfo1);
 
 			mGridView.setHasMoreItems(mGridView.hasMoreItems());
 			mGridView.setIsLoading(false);
-			if(aspectInfo1 != null && aspectInfo1.size() > 0) {
+			if (aspectInfo1 != null && aspectInfo1.size() > 0) {
 				aspectList.addAll(aspectInfo1);//将数据追加给原来的集合
 				mAdapder.notifyDataSetChanged();//适配器刷新数据
 			}
@@ -120,6 +134,8 @@ public class AspectFrgment extends BaseFragment {
 
 	private void getMoreDataFromServer() {
 		HttpUtils utils = new HttpUtils();
+//		RequestParams params = new RequestParams();
+//		params.addQueryStringParameter("page", 2 + "");
 		utils.send(HttpRequest.HttpMethod.GET, mMoreUrl, new RequestCallBack<String>() {
 
 			@Override

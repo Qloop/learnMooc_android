@@ -1,13 +1,11 @@
 package com.upc.learnmooc.domain;
 
-import java.util.Date;
-
 /**
  * 用户返回信息
  * Created by Explorer on 2016/2/1.
  */
 public class User {
-	public int id;
+	public long id;
 	public String result;//注册的返回结果 eg:"注册成功"
 	public String password;
 	public String mail;
@@ -19,11 +17,46 @@ public class User {
 	public String major;//专业
 	private String academy;//学院
 	public int status;//账户状态 1:正常 3 未激活
-	public Date createDate;
+//	public Date createDate;
 
 	public int learnTime;
 	public int exp;
-	public int commentNum;
+	public String commentNum;  //改为String方便解析数据
+	public long collectCourse;
+	public long collectArticle;
+
+
+	public void setCommentNum(String commentNum) {
+		this.commentNum = commentNum;
+	}
+
+	public String getCommentNum() {
+		return commentNum;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setCollectCourse(long collectCourse) {
+		this.collectCourse = collectCourse;
+	}
+
+	public void setCollectArticle(long collectArticle) {
+		this.collectArticle = collectArticle;
+	}
+
+	public long getCollectCourse() {
+		return collectCourse;
+	}
+
+	public long getCollectArticle() {
+		return collectArticle;
+	}
 
 	public void setLearnTime(int learnTime) {
 		this.learnTime = learnTime;
@@ -33,9 +66,6 @@ public class User {
 		this.exp = exp;
 	}
 
-	public void setCommentNum(int commentNum) {
-		this.commentNum = commentNum;
-	}
 
 	public int getLearnTime() {
 		return learnTime;
@@ -45,9 +75,6 @@ public class User {
 		return exp;
 	}
 
-	public int getCommentNum() {
-		return commentNum;
-	}
 
 	public String getAcademy() {
 		return academy;
@@ -73,9 +100,9 @@ public class User {
 		return status;
 	}
 
-	public Date getCreateDate() {
-		return createDate;
-	}
+//	public Date getCreateDate() {
+//		return createDate;
+//	}
 
 	public void setName(String name) {
 		this.name = name;
@@ -93,9 +120,9 @@ public class User {
 		this.status = status;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
+//	public void setCreateDate(Date createDate) {
+//		this.createDate = createDate;
+//	}
 
 	public String getResult() {
 		return result;
@@ -111,10 +138,6 @@ public class User {
 
 	public String getNickname() {
 		return nickname;
-	}
-
-	public int getId() {
-		return id;
 	}
 
 	public String getAvatar() {
@@ -139,10 +162,6 @@ public class User {
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public void setAvatar(String avatar) {

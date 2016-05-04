@@ -20,6 +20,7 @@ public class ArticleList {
 		public String abstractInfo;
 		public int num;
 
+
 		@Override
 		public String toString() {
 			return "ArticleInfo{" +
@@ -36,7 +37,7 @@ public class ArticleList {
 			this.title = title;
 		}
 
-		public void setClassifyName(String classifyName) {
+		public void setClassify(String classifyName) {
 			this.classifyName = classifyName;
 		}
 
@@ -60,7 +61,7 @@ public class ArticleList {
 			return title;
 		}
 
-		public String getClassifyName() {
+		public String getClassify() {
 			return classifyName;
 		}
 
@@ -78,15 +79,6 @@ public class ArticleList {
 
 		public int getNum() {
 			return num;
-		}
-
-		public ArticleInfo(String title, String classifyName, String img, String articleUrl, String abstractInfo, int num) {
-			this.title = title;
-			this.classifyName = classifyName;
-			this.img = img;
-			this.articleUrl = articleUrl;
-			this.abstractInfo = abstractInfo;
-			this.num = num;
 		}
 	}
 }

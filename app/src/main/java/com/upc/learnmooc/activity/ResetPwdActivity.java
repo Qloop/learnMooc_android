@@ -14,6 +14,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.upc.learnmooc.R;
+import com.upc.learnmooc.global.GlobalConstants;
 import com.upc.learnmooc.utils.ToastUtils;
 
 /**
@@ -61,7 +62,7 @@ public class ResetPwdActivity extends BaseActivity {
 		HttpUtils httpUtils = new HttpUtils();
 		//超时时间5s
 		httpUtils.configCurrentHttpCacheExpiry(1000 * 5);
-		String url = null;
+		String url = GlobalConstants.BASE_URL + "/user/reset_mail";
 		mEmail = etResetEmail.getText().toString();
 		final Message msg = Message.obtain();
 		if (mEmail == null) {

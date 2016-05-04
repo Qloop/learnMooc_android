@@ -34,16 +34,16 @@ public class UserInfoCacheUtils {
 		sp.edit().putString(key, value).apply();
 	}
 
-	public static int getInt(Context ctx, String key, int defaultValue) {
+	public static long getLong(Context ctx, String key, int defaultValue) {
 		SharedPreferences sp = ctx.getSharedPreferences(PREF_NAME,
 				Context.MODE_PRIVATE);
-		return sp.getInt(key, defaultValue);
+		return sp.getLong(key, defaultValue);
 	}
 
-	public static void setInt(Context ctx, String key, int value) {
+	public static void setLong(Context ctx, String key, long value) {
 		SharedPreferences sp = ctx.getSharedPreferences(PREF_NAME,
 				Context.MODE_PRIVATE);
-		sp.edit().putInt(key, value).apply();
+		sp.edit().putLong(key, value).apply();
 	}
 
 	/**

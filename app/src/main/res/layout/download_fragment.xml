@@ -75,6 +75,7 @@
             android:id="@+id/lv_download_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:divider="@null"
             android:scrollbars="none"/>
 
         <ViewStub

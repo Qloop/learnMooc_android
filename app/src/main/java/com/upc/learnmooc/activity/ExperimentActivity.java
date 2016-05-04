@@ -2,6 +2,7 @@ package com.upc.learnmooc.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
@@ -215,6 +216,7 @@ public class ExperimentActivity extends Activity {
 			if (mViewCache.size() == 0) {
 				convertView = View.inflate(ExperimentActivity.this, R.layout.item_exper_viewpager, null);
 				holder = new ViewHolder();
+				holder.rlRoot = (RelativeLayout) convertView.findViewById(R.id.rl_exp);
 				holder.ivPic = (ImageView) convertView.findViewById(R.id.iv_title_pic);
 				holder.tvName = (TextView) convertView.findViewById(R.id.tv_exper_name);
 				holder.tvNum = (TextView) convertView.findViewById(R.id.tv_num);
@@ -258,6 +260,18 @@ public class ExperimentActivity extends Activity {
 
 
 			container.addView(convertView);
+
+			holder.rlRoot.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent();
+					intent.setClass(ExperimentActivity.this, VideoActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putLong("id", expertData.getExpertId());
+					intent.putExtras(bundle);
+					startActivity(intent);
+				}
+			});
 			return convertView;
 		}
 
@@ -270,6 +284,7 @@ public class ExperimentActivity extends Activity {
 
 		//View复用
 		public final class ViewHolder {
+			public RelativeLayout rlRoot;
 			public TextView tvName;
 			public TextView tvNum;
 			public ImageView ivPic;

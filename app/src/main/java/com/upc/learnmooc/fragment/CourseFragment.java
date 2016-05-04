@@ -3,6 +3,7 @@ package com.upc.learnmooc.fragment;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -233,13 +234,13 @@ public class CourseFragment extends BaseFragment {
 					@Override
 					public void onFailure(HttpException e, String s) {
 						e.printStackTrace();
-						if(!TextUtils.isEmpty(cache)){
+						if (!TextUtils.isEmpty(cache)) {
 							ToastUtils.showToastShort(mActivity, "请求数据失败 请检查网络");
 							mViewPager.setAdapter(new TopCourseAdapter());//获取数据失败的时候设置适配器(进行读取缓存或默认加载处理)
 							mIndictor.setViewPager(mViewPager);//给指示器绑定viewpager
 							mIndictor.setSnap(true);//支持快照
 							mListView.onRefreshComplete(false);
-						}else {
+						} else {
 							viewStub.inflate().setVisibility(View.VISIBLE);
 						}
 					}
@@ -254,6 +255,8 @@ public class CourseFragment extends BaseFragment {
 	 */
 	private void getMoreDataFromServer() {
 		HttpUtils utils = new HttpUtils();
+//		RequestParams params = new RequestParams();
+//		params.addQueryStringParameter("page", 2 + "");
 		utils.send(HttpRequest.HttpMethod.GET, mMoreUrl, new RequestCallBack<String>() {
 
 			@Override
@@ -281,7 +284,7 @@ public class CourseFragment extends BaseFragment {
 		// 处理下一页链接
 		String more = mainCourseInfo.more;
 		if (!TextUtils.isEmpty(more)) {
-			mMoreUrl = more;
+			mMoreUrl = GlobalConstants.BASE_URL + more;
 		} else {
 			mMoreUrl = null;
 		}
@@ -309,7 +312,9 @@ public class CourseFragment extends BaseFragment {
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 						Intent intent = new Intent();
 						intent.setClass(mActivity, VideoActivity.class);
-						intent.putExtra("id", listCourseList.get(position).getCourseId());
+						Bundle bundle = new Bundle();
+						bundle.putLong("id",listCourseList.get(position).getCourseId());
+						intent.putExtras(bundle);
 						startActivity(intent);
 					}
 				});
@@ -392,7 +397,9 @@ public class CourseFragment extends BaseFragment {
 				public void onClick(View v) {
 					Intent intent = new Intent();
 					intent.setClass(mActivity, VideoActivity.class);
-					intent.putExtra("id", topCourseList.get(position).getCourseId());
+					Bundle bundle = new Bundle();
+					bundle.putLong("id", listCourseList.get(position).getCourseId());
+					intent.putExtras(bundle);
 					startActivity(intent);
 				}
 			});
@@ -453,7 +460,7 @@ public class CourseFragment extends BaseFragment {
 			MainCourse.ListCourse item = getItem(position);
 			holder.tvCourseName.setText(item.getCourseName());
 			holder.tvLearnerNum.setText(item.getNum() + "");
-			holder.tvCoursedate.setText(item.getPubdate());
+			holder.tvCoursedate.setText(item.getPubdate().substring(0,10));
 			bitmapUtils.display(holder.ivCourseImg, item.getThumbnailUrl());
 
 			return convertView;

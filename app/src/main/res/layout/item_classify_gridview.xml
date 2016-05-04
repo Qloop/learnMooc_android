@@ -12,13 +12,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:src="@drawable/html"/>
+        tools:src="@drawable/html"/>
 
     <TextView
         android:id="@+id/tv_course_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Html5"
+        android:singleLine="true"
+        android:maxWidth="80dp"
+        android:ellipsize="end"
+        tools:text="Html5Html5Html5Html5Html5"
         android:textSize="14sp"/>
 
     <TextView

@@ -20,6 +20,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.upc.learnmooc.R;
 import com.upc.learnmooc.domain.User;
 import com.upc.learnmooc.global.GlobalConstants;
+import com.upc.learnmooc.utils.PrefUtils;
 import com.upc.learnmooc.utils.ToastUtils;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -137,6 +138,7 @@ public class RegisterActivity extends BaseActivity {
 					} else if (user.getResult().equals("昵称已注册")) {
 						msg.what = RESULT_HAS_REGISTER;
 					} else if (user.getResult().equals("注册成功")) {
+						PrefUtils.setBoolean(RegisterActivity.this, "is_user_guide_hasShowed", true);//下次打开不再进入引导页
 						msg.what = RESULT_SUCCESS;
 
 						//注册成功的话保存用户信息到本地 下次打开的时候自动登录、进入的时候初始化UI信息
@@ -147,6 +149,8 @@ public class RegisterActivity extends BaseActivity {
 								.putString("mail", user.getMail())
 								.putString("avatar", user.getAvatar())
 								.putInt("roleType", user.getRoleType())
+								.putLong("learnTime", user.getLearnTime())
+								.putLong("exp", user.getExp())
 								.apply();
 					}
 					mHandler.sendMessage(msg);
@@ -160,6 +164,7 @@ public class RegisterActivity extends BaseActivity {
 			});
 		}
 	}
+
 
 	/**
 	 * 解析json

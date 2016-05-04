@@ -11,12 +11,14 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.upc.learnmooc.R;
 import com.upc.learnmooc.domain.Score;
 import com.upc.learnmooc.global.GlobalConstants;
+import com.upc.learnmooc.utils.UserInfoCacheUtils;
 
 import java.util.ArrayList;
 
@@ -56,7 +58,10 @@ public class ScoreActivity extends BaseActivity {
 		HttpUtils httpUtils = new HttpUtils();
 		httpUtils.configTimeout(5000);
 		httpUtils.configCurrentHttpCacheExpiry(5000);
-		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, new RequestCallBack<String>() {
+		//GET参数为用户id
+		RequestParams params = new RequestParams();
+		params.addQueryStringParameter("userId", UserInfoCacheUtils.getLong(ScoreActivity.this, "id", 0) + "");
+		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, params, new RequestCallBack<String>() {
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				parseData(responseInfo.result);
@@ -76,7 +81,7 @@ public class ScoreActivity extends BaseActivity {
 		scoreList = score.scoreList;
 		if (scoreList != null) {
 			mListView.setAdapter(new ScoreListAdpater());
-		}else {
+		} else {
 			View contentView = viewStubBlank.inflate();
 			contentView.setVisibility(View.VISIBLE);
 			TextView tvHint = (TextView) contentView.findViewById(R.id.tv_hint);

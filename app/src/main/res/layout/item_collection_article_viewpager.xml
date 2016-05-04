@@ -8,5 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <ViewStub
+        android:id="@+id/vs_blank_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/blank_content"/>
 
 </FrameLayout>

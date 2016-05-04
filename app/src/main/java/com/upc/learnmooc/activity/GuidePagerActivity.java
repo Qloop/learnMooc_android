@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 
 import com.upc.learnmooc.R;
 import com.upc.learnmooc.utils.DensityUtils;
-import com.upc.learnmooc.utils.PrefUtils;
 
 import java.util.ArrayList;
 
@@ -176,7 +175,7 @@ public class GuidePagerActivity extends Activity {
 	 * @param View
 	 */
 	public void login(View View){
-		PrefUtils.setBoolean(GuidePagerActivity.this, "is_user_guide_hasShowed", true);
+//		PrefUtils.setBoolean(GuidePagerActivity.this, "is_user_guide_hasShowed", true);
 		Intent intent = new Intent(GuidePagerActivity.this,LoginActivity.class);
 		startActivity(intent);
 	}
@@ -186,7 +185,7 @@ public class GuidePagerActivity extends Activity {
 	 * @param View
 	 */
 	public void register(View View){
-		PrefUtils.setBoolean(GuidePagerActivity.this, "is_user_guide_hasShowed", true);
+//		PrefUtils.setBoolean(GuidePagerActivity.this, "is_user_guide_hasShowed", true);
 		Intent intent = new Intent(GuidePagerActivity.this,RegisterActivity.class);
 		startActivity(intent);
 	}

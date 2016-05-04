@@ -160,7 +160,9 @@ public class ClassifyActivity extends BaseActivity {
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					Intent intent = new Intent();
 					intent.setClass(ClassifyActivity.this, VideoActivity.class);
-					intent.putExtra("id", classifyData.getCourseInfo().get(position).getCourseId());
+					Bundle bundle = new Bundle();
+					bundle.putLong("id",classifyData.getCourseInfo().get(position).getCourseId());
+					intent.putExtras(bundle);
 					startActivity(intent);
 				}
 			});

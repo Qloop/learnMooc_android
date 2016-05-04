@@ -15,7 +15,7 @@
                      android:top="7dp"
                      android:left="7dp"
                      android:right="7dp"/>
-            <solid android:color="#50abe4"/>
+            <solid android:color="#00CED1"/>
         </shape>
     </item>
 

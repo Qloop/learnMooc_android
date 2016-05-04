@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.upc.learnmooc.activity.MainActivity;
 import com.upc.learnmooc.utils.MsgCacheUtils;
@@ -34,7 +33,7 @@ public class MyReceiver extends BroadcastReceiver {
 			MsgCacheUtils.setInt(context, "Msg_Size", MyApplication.JPushMsgSize);
 			MsgCacheUtils.setString(context, "Msg_" + MyApplication.JPushMsgSize, message);
 
-			Toast.makeText(context, "Message title:" + title + "  content:" + message, Toast.LENGTH_LONG).show();
+//			Toast.makeText(context, "Message title:" + title + "  content:" + message, Toast.LENGTH_LONG).show();
 
 //			MainActivity.tvMsg.setText(MyApplication.jPushNum + "");
 //			ToastUtils.showToastLong(context, MainActivity.tvMsg.getText()+"");

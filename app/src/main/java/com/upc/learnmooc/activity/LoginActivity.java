@@ -19,6 +19,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.upc.learnmooc.R;
 import com.upc.learnmooc.domain.User;
 import com.upc.learnmooc.global.GlobalConstants;
+import com.upc.learnmooc.utils.PrefUtils;
 import com.upc.learnmooc.utils.ToastUtils;
 import com.upc.learnmooc.utils.UserInfoCacheUtils;
 
@@ -88,17 +89,26 @@ public class LoginActivity extends BaseActivity {
 		getLoginInfo();
 
 		RequestParams params = new RequestParams();
-		params.addBodyParameter("mail", mEmail);
-		params.addBodyParameter("password", mPwd);
+//		params.addBodyParameter("mail", mEmail);
+//		params.addBodyParameter("password", mPwd);
+		params.addQueryStringParameter("email",mEmail);
+		params.addQueryStringParameter("password",mPwd);
 
 		String url = GlobalConstants.LOGIN_URL;
 		final Message msg = Message.obtain();
-		httpUtils.send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
+		httpUtils.send(HttpRequest.HttpMethod.GET, url, params, new RequestCallBack<String>() {
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				System.out.println("登录成功 response is " + responseInfo);
-				refreshUserInfo();
-				System.out.println("信息缓存完成");
+
+				if(responseInfo.result.equals("success")){
+					refreshUserInfo();
+					System.out.println("信息缓存完成");
+					PrefUtils.setBoolean(LoginActivity.this, "is_user_guide_hasShowed", true);//下次打开不再进入引导页
+				}else {
+					ToastUtils.showToastLong(LoginActivity.this,"密码错误");
+				}
+
 //				User userInfo = getData(responseInfo.result);
 //
 //				//登录成功的话 更新一下用户信息到本地
@@ -190,7 +200,7 @@ public class LoginActivity extends BaseActivity {
 		httpRefresh.configTimeout(1000 * 5);
 
 		RequestParams params = new RequestParams();
-		params.addQueryStringParameter("nickname", user_info.getString("nickname", null));
+		params.addQueryStringParameter("mail", mEmail);
 
 		String url = GlobalConstants.GET_USER_INFO;
 		final Message msg = Message.obtain();
@@ -201,12 +211,14 @@ public class LoginActivity extends BaseActivity {
 				User userInfo = getData(responseInfo.result);
 
 				//登录成功的话 更新一下用户信息到本地
-				UserInfoCacheUtils.setInt(LoginActivity.this,"id",userInfo.getId());
+				UserInfoCacheUtils.setLong(LoginActivity.this, "id", userInfo.getId());
 				UserInfoCacheUtils.setString(LoginActivity.this, "password", userInfo.getPassword());
 				UserInfoCacheUtils.setString(LoginActivity.this, "mail", userInfo.getMail());
 				UserInfoCacheUtils.setString(LoginActivity.this, "nickname", userInfo.getNickname());
 				UserInfoCacheUtils.setString(LoginActivity.this, "avatar", userInfo.getAvatar());
-				UserInfoCacheUtils.setInt(LoginActivity.this, "roleType", userInfo.getRoleType());
+				UserInfoCacheUtils.setLong(LoginActivity.this, "roleType", userInfo.getRoleType());
+				UserInfoCacheUtils.setLong(LoginActivity.this, "learnTime", userInfo.getLearnTime());
+				UserInfoCacheUtils.setLong(LoginActivity.this, "exp", userInfo.getExp());
 
 				msg.what = LOGIN_SUCCESS;
 				mHandler.sendMessage(msg);

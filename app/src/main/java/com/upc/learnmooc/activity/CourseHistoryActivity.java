@@ -73,8 +73,8 @@ public class CourseHistoryActivity extends BaseActivity {
 
 		//get请求参数据---用户id
 		RequestParams params = new RequestParams();
-		String id = UserInfoCacheUtils.getInt(CourseHistoryActivity.this, "id", 0) + "";//从缓存到本地的用户信息中拿到id 默认为0 也就是没有用户
-		params.addQueryStringParameter("id", id);
+		String id = UserInfoCacheUtils.getLong(CourseHistoryActivity.this, "id", 0) + "";//从缓存到本地的用户信息中拿到id 默认为0 也就是没有用户
+		params.addQueryStringParameter("userid", id);
 		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, params, new RequestCallBack<String>() {
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -100,7 +100,7 @@ public class CourseHistoryActivity extends BaseActivity {
 	private void parseData(String result) {
 		Gson gson = new Gson();
 		CourseHistory courseHistory = gson.fromJson(result, CourseHistory.class);
-		historyData = courseHistory.historyData;
+		historyData = courseHistory.historyDate;
 		if (historyData != null) {
 			mListView.setAdapter(new MyTimeListAdapater());
 		}else {
@@ -108,7 +108,7 @@ public class CourseHistoryActivity extends BaseActivity {
 			TextView tvHint = (TextView)inflate.findViewById(R.id.tv_hint);
 			TextView tvHintDetail = (TextView)inflate.findViewById(R.id.tv_hint_detail);
 			tvHint.setText("没有学习记录");
-			tvHint.setText("快点开始愉快的学习吧*.*");
+			tvHintDetail.setText("快点开始愉快的学习吧*.*");
 		}
 	}
 

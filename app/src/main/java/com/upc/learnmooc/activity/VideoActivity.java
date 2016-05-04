@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
@@ -63,18 +64,26 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 	private View vIndictorLine;
 	private int mWidth;
 	private String mUrl = GlobalConstants.GET_VIDEO;
+	private String url = GlobalConstants.POST_HISTORY;
+	private String collectionUrl = GlobalConstants.POST_COURSE_COLLECTION;
+	private String rmCollectionUrl =
+			GlobalConstants.RM_COURSE_COLLECTION;
+
 	private CourseContent courseContent;
 	private TextView tvCourseName;
-	private int courseId;
+	private long courseId;
 	private ImageView ivCollection;
+
+	private String[] videoUrlList;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.video_activity);
 
-		initViews();
 		initData();
+		initViews();
 		setCollection(false);
 		ivCollection.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -96,9 +105,14 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 		tvCourseName = (TextView) findViewById(R.id.tv_course_title);
 
 		mFragment = new ArrayList<>();
+		Bundle bundle = new Bundle();
+		bundle.putLong("id", courseId);
 		Fragment chapterFragment = new VideoChapterFragment();
+		chapterFragment.setArguments(bundle);
 		Fragment commentFragment = new VideoCommentFragment();
+		commentFragment.setArguments(bundle);
 		Fragment detailFragment = new VideoDetailFragment();
+		detailFragment.setArguments(bundle);
 
 		mFragment.add(chapterFragment);
 		mFragment.add(commentFragment);
@@ -180,9 +194,9 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 	}
 
 	public void initData() {
-		getDataFromServer();
 		Bundle extras = getIntent().getExtras();
-		courseId = extras.getInt("id");
+		courseId = extras.getLong("id");
+		getDataFromServer();
 	}
 
 	private void getDataFromServer() {
@@ -191,10 +205,11 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 		httpUtils.configTimeout(5000);
 
 		//get请求参数加 courseId
-//		RequestParams params = new RequestParams();
-//		params.addQueryStringParameter("id",courseId+"");
+		final RequestParams params = new RequestParams();
+		params.addQueryStringParameter("courseId", courseId + "");
+		System.out.println(params.getQueryStringParams());
 
-		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, new RequestCallBack<String>() {
+		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, params, new RequestCallBack<String>() {
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				parseDate(responseInfo.result);
@@ -203,6 +218,8 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 			@Override
 			public void onFailure(HttpException e, String s) {
 				e.printStackTrace();
+//				ToastUtils.showToastShort(VideoActivity.this, courseId + "");
+				System.out.println(mUrl + " " + params.getQueryStringParams());
 				ToastUtils.showToastShort(VideoActivity.this, "网络错误");
 			}
 		});
@@ -213,30 +230,34 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 		courseContent = gson.fromJson(result, CourseContent.class);
 		if (courseContent != null) {
 			tvCourseName.setText(courseContent.getCourseName());
-
+			String videoUrl = courseContent.videoUrl;
+			videoUrlList = videoUrl.split(";");
 
 			VDVideoListInfo infoList = new VDVideoListInfo();
-			VDVideoInfo info = new VDVideoInfo();
-			info.mTitle = courseContent.getCourseName();
+			VDVideoInfo info;
+			for (int i = 0; i < videoUrlList.length; i++) {
+				info = new VDVideoInfo();
+				info.mTitle = courseContent.getCourseName() + (i + 1);
 //			info.mPlayUrl = "http://v.iask.com/v_play_ipad.php?vid=131386882&tags=videoapp_android";
-			info.mPlayUrl = courseContent.videoUrl.get(0).getUrl();
-			infoList.addVideoInfo(info);
+				info.mPlayUrl = videoUrlList[i];
+				infoList.addVideoInfo(info);
+			}
 
 
-			info = new VDVideoInfo();
-			info.mTitle = "这就是一个测试视频1";
-			info.mPlayUrl = "http://v.iask.com/v_play_ipad.php?vid=131386882&tags=videoapp_android";
-			infoList.addVideoInfo(info);
-
-			info = new VDVideoInfo();
-			info.mTitle = "这就是一个测试视频2";
-			info.mPlayUrl = "http://120.27.47.134/video/20160118nx.mp4";
-			infoList.addVideoInfo(info);
-
-			info = new VDVideoInfo();
-			info.mTitle = "这就是一个测试视频3";
-			info.mPlayUrl = "http://v.iask.com/v_play_ipad.php?vid=131386882&tags=videoapp_android";
-			infoList.addVideoInfo(info);
+//			info = new VDVideoInfo();
+//			info.mTitle = "这就是一个测试视频1";
+//			info.mPlayUrl = "http://v.iask.com/v_play_ipad.php?vid=131386882&tags=videoapp_android";
+//			infoList.addVideoInfo(info);
+//
+//			info = new VDVideoInfo();
+//			info.mTitle = "这就是一个测试视频2";
+//			info.mPlayUrl = "http://120.27.47.134/video/20160118nx.mp4";
+//			infoList.addVideoInfo(info);
+//
+//			info = new VDVideoInfo();
+//			info.mTitle = "这就是一个测试视频3";
+//			info.mPlayUrl = "http://v.iask.com/v_play_ipad.php?vid=131386882&tags=videoapp_android";
+//			infoList.addVideoInfo(info);
 
 			mVDVideoView.setPlaylistListener(this);
 
@@ -250,7 +271,34 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 			mVDVideoView.open(VideoActivity.this, infoList);
 			// 开始播放，直接选择序号即可
 			mVDVideoView.play(0);
+			SubmitHistory();
 		}
+	}
+
+	/**
+	 * 提交学习历史
+	 */
+	private void SubmitHistory() {
+		HttpUtils httpUtils = new HttpUtils();
+		httpUtils.configCurrentHttpCacheExpiry(5000);
+		httpUtils.configTimeout(5000);
+
+		//get请求参数加 courseId
+		final RequestParams params = new RequestParams();
+		params.addQueryStringParameter("userId", UserInfoCacheUtils.getLong(VideoActivity.this, "id", 0) + "");
+		params.addQueryStringParameter("courseId", courseId + "");
+
+		httpUtils.send(HttpRequest.HttpMethod.GET, url, params, new RequestCallBack<String>() {
+			@Override
+			public void onSuccess(ResponseInfo<String> responseInfo) {
+
+			}
+
+			@Override
+			public void onFailure(HttpException e, String s) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	@Override
@@ -372,6 +420,7 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 				Snackbar.make(ivCollection, "已收藏！^_^~~~", Snackbar.LENGTH_LONG)
 						.setAction("Action", null).show();
 				//数据库保存用户收藏的课程
+				SubCollection();
 
 			} else {
 				System.out.println("文章 is " + article);
@@ -382,6 +431,7 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 						.setAction("Action", null).show();
 
 				//数据库删除用户收藏的课程 的记录
+				RemoveCollection();
 			}
 		} else {
 			if (article == null) {
@@ -393,8 +443,58 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 
 	}
 
+	private void RemoveCollection() {
+		HttpUtils httpUtils = new HttpUtils();
+		httpUtils.configCurrentHttpCacheExpiry(5000);
+		httpUtils.configTimeout(5000);
+
+		final RequestParams params = new RequestParams();
+		params.addQueryStringParameter("userId", UserInfoCacheUtils.getLong(VideoActivity.this, "id", 0) + "");
+		params.addQueryStringParameter("courseId", courseId + "");
+
+		httpUtils.send(HttpRequest.HttpMethod.GET, rmCollectionUrl, params, new RequestCallBack<String>() {
+			@Override
+			public void onSuccess(ResponseInfo<String> responseInfo) {
+
+			}
+
+			@Override
+			public void onFailure(HttpException e, String s) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	private void SubCollection() {
+		HttpUtils httpUtils = new HttpUtils();
+		httpUtils.configCurrentHttpCacheExpiry(5000);
+		httpUtils.configTimeout(5000);
+
+		final RequestParams params = new RequestParams();
+		params.addQueryStringParameter("userId", UserInfoCacheUtils.getLong(VideoActivity.this, "id", 0) + "");
+		params.addQueryStringParameter("courseId", courseId + "");
+
+		httpUtils.send(HttpRequest.HttpMethod.GET, collectionUrl, params, new RequestCallBack<String>() {
+			@Override
+			public void onSuccess(ResponseInfo<String> responseInfo) {
+
+			}
+
+			@Override
+			public void onFailure(HttpException e, String s) {
+				e.printStackTrace();
+			}
+		});
+	}
+
 	public void ToMarkerDown(View view) {
-		startActivity(new Intent(VideoActivity.this, NoteActivity.class));
+		Intent intent = new Intent(VideoActivity.this, NoteActivity.class);
+		Bundle bundle = new Bundle();
+		if (courseContent != null) {
+			bundle.putString("courseName", courseContent.getCourseName());
+		}
+		intent.putExtras(bundle);
+		startActivity(intent);
 	}
 
 	public void VideoDownLoad(View view) {
@@ -416,18 +516,18 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 			int currentVideo = 0;
 			currentVideo = (int) mVDVideoView.getListInfo().getCurrInfo().mVideoPosition;
 			HttpUtils httpUtils = new HttpUtils();
-			httpUtils.download(courseContent.videoUrl.get(currentVideo).getUrl(), target, true, false,
+			httpUtils.download(videoUrlList[currentVideo], target, true, false,
 					new RequestCallBack<File>() {
 						@Override
 						public void onStart() {
 							if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-								ToastUtils.showToastLong(VideoActivity.this,"正在下载———" +
+								ToastUtils.showToastLong(VideoActivity.this, "正在下载———" +
 										Environment.getExternalStorageDirectory() + "/downloadVieo/" + mVDVideoView.getListInfo().getCurrInfo().mTitle);
 
 
 							} else {
 								//如果没有SD卡
-								ToastUtils.showToastLong(VideoActivity.this,"正在下载———" +
+								ToastUtils.showToastLong(VideoActivity.this, "正在下载———" +
 										Environment.getDataDirectory() + "/downloadVieo/" + mVDVideoView.getListInfo().getCurrInfo().mTitle);
 							}
 
@@ -441,7 +541,7 @@ public class VideoActivity extends FragmentActivity implements VDVideoExtListene
 
 						@Override
 						public void onSuccess(ResponseInfo<File> responseInfo) {
-							ToastUtils.showToastLong(VideoActivity.this,"下载成功");
+							ToastUtils.showToastLong(VideoActivity.this, "下载成功");
 						}
 
 						@Override

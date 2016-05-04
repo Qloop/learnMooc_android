@@ -80,7 +80,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 		ArticleList.ArticleInfo articleInfo = (ArticleList.ArticleInfo) mData.get(position);
 
 		holder.tvTitle.setText(articleInfo.getTitle());
-		holder.tvClassify.setText(articleInfo.getClassifyName());
+		holder.tvClassify.setText(articleInfo.getClassify());
 		holder.tvNum.setText(articleInfo.getNum() + "");
 		bitmapUtils.display(holder.ivPic, articleInfo.getImg());
 

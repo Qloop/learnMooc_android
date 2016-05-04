@@ -15,12 +15,14 @@ import com.google.gson.Gson;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.upc.learnmooc.R;
 import com.upc.learnmooc.domain.MainCourse;
 import com.upc.learnmooc.global.GlobalConstants;
+import com.upc.learnmooc.utils.UserInfoCacheUtils;
 
 import java.util.ArrayList;
 
@@ -62,10 +64,10 @@ public class CollectedCourseActivity extends BaseActivity {
 		httpUtils.configCurrentHttpCacheExpiry(5 * 1000);
 		httpUtils.configTimeout(1000 * 5);
 		//GET参数为用户id
-//		RequestParams params = new RequestParams();
-//		params.addQueryStringParameter("id", UserInfoCacheUtils.getInt(CollectedCourseActivity.this,"id",0)+"");
+		RequestParams params = new RequestParams();
+		params.addQueryStringParameter("userId", UserInfoCacheUtils.getLong(CollectedCourseActivity.this, "id", 0) + "");
 
-		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, new RequestCallBack<String>() {
+		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, params, new RequestCallBack<String>() {
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				parseData(responseInfo.result);
@@ -85,13 +87,19 @@ public class CollectedCourseActivity extends BaseActivity {
 		MainCourse mainCourse = gson.fromJson(result, MainCourse.class);
 		listCourse = mainCourse.listCourse;
 		if (listCourse != null) {
+
+			System.out.println("data is " + listCourse.toString());
+
+
 			mListView.setAdapter(new ListCourseAdapter());
 			mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					Intent intent = new Intent();
 					intent.setClass(CollectedCourseActivity.this, VideoActivity.class);
-					intent.putExtra("id", listCourse.get(position).getCourseId());
+					Bundle bundle = new Bundle();
+					bundle.putLong("id", listCourse.get(position).getCourseId());
+					intent.putExtras(bundle);
 					startActivity(intent);
 				}
 			});
@@ -152,7 +160,7 @@ public class CollectedCourseActivity extends BaseActivity {
 			MainCourse.ListCourse item = getItem(position);
 			holder.tvCourseName.setText(item.getCourseName());
 			holder.tvLearnerNum.setText(item.getNum() + "");
-			holder.tvCoursedate.setText(item.getPubdate());
+			holder.tvCoursedate.setText(item.getPubdate().substring(0, 10));
 			bitmapUtils.display(holder.ivCourseImg, item.getThumbnailUrl());
 
 			return convertView;

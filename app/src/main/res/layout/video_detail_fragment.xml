@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="鸿洋"
+                    tools:text="鸿洋"
                     android:textColor="#262626"/>
 
                 <TextView
@@ -83,7 +84,7 @@
                     android:layout_marginTop="10dp"
                     android:ellipsize="end"
                     android:maxLines="5"
-                    android:text="CSDN博客专家,慕课网讲师。擅长用通俗易懂的语言讲解晦涩难懂的概念。。擅长各种自定义控件CSDN博客专家,慕课网讲师。擅长用通俗易懂的语言讲解晦涩难懂的概念。。擅长各种自定义控件CSDN博客专家,慕课网讲师。擅长用通俗易懂的语言讲解晦涩难懂的概念。。擅长各种自定义控件CSDN博客专家,慕课网讲师。擅长用通俗易懂的语言讲解晦涩难懂的概念"
+                    android:text="实战派讲师,擅长把知识点通过代码演示来加深理解。把看似高深的概念通过通俗易懂的方式来解释"
                     android:textSize="12sp"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>

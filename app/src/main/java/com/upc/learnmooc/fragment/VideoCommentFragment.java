@@ -1,6 +1,7 @@
 package com.upc.learnmooc.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
@@ -38,16 +40,23 @@ public class VideoCommentFragment extends BaseFragment {
 	private FloatingActionButton fabAddComment;
 	private String mUrl = GlobalConstants.GET_VIDEO_COMMENTINFO;
 	private ArrayList<VideoComment.CommentInfo> commentInfos;
+	private long courseId;
 
 	@Override
 	public View initViews() {
 		View view = View.inflate(mActivity, R.layout.video_comment_fragment, null);
 		ViewUtils.inject(this, view);
 
+		Bundle arguments = getArguments();
+		courseId = arguments.getLong("id", 1);
 		fabAddComment.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(mActivity, PubCommentActivity.class));
+				Intent intent = new Intent(mActivity, PubCommentActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putLong("courseId", courseId);
+				intent.putExtras(bundle);
+				startActivity(intent);
 			}
 		});
 		return view;
@@ -62,8 +71,9 @@ public class VideoCommentFragment extends BaseFragment {
 		HttpUtils httpUtils = new HttpUtils();
 		httpUtils.configCurrentHttpCacheExpiry(5000);
 		httpUtils.configTimeout(5000);
-
-		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, new RequestCallBack<String>() {
+		RequestParams params = new RequestParams();
+		params.addQueryStringParameter("courseid", courseId + "");
+		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, params, new RequestCallBack<String>() {
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				parseDate(responseInfo.result);
@@ -114,7 +124,7 @@ public class VideoCommentFragment extends BaseFragment {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder;
 			if (convertView == null) {
-				convertView = View.inflate(mActivity,R.layout.item_comment_listview,null);
+				convertView = View.inflate(mActivity, R.layout.item_comment_listview, null);
 				holder = new ViewHolder();
 				holder.civAvatar = (CircleImageView) convertView.findViewById(R.id.civ_avatar);
 				holder.tvName = (TextView) convertView.findViewById(R.id.tv_name);

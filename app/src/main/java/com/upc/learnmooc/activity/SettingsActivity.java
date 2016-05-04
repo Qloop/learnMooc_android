@@ -121,8 +121,8 @@ public class SettingsActivity extends FragmentActivity {
 			tintManager.setStatusBarTintResource(R.color.status_color);//通知栏所需颜色
 		}
 		setContentView(R.layout.activity_settings);
-		initData();
 		initViews();
+		initData();
 	}
 
 	@TargetApi(19)

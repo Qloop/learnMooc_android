@@ -15,12 +15,14 @@ import com.google.gson.Gson;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.upc.learnmooc.R;
 import com.upc.learnmooc.domain.NoteInfo;
 import com.upc.learnmooc.global.GlobalConstants;
+import com.upc.learnmooc.utils.UserInfoCacheUtils;
 
 import java.util.ArrayList;
 
@@ -63,10 +65,10 @@ public class MineNoteActivity extends BaseActivity {
 		httpUtils.configCurrentHttpCacheExpiry(5 * 1000);
 		httpUtils.configTimeout(1000 * 5);
 		//GET参数为用户id
-//		RequestParams params = new RequestParams();
-//		params.addQueryStringParameter("id", UserInfoCacheUtils.getInt(CollectedCourseActivity.this,"id",0)+"");
+		RequestParams params = new RequestParams();
+		params.addQueryStringParameter("userId", UserInfoCacheUtils.getLong(MineNoteActivity.this, "id", 0) + "");
 
-		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, new RequestCallBack<String>() {
+		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, params, new RequestCallBack<String>() {
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				parseData(responseInfo.result);
@@ -90,12 +92,12 @@ public class MineNoteActivity extends BaseActivity {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					Intent intent = new Intent();
-					intent.putExtra("courseId", listCourse.get(position).getCourseId());
+					intent.putExtra("courseName", listCourse.get(position).getCourseName());
 					intent.setClass(MineNoteActivity.this, NoteDetailActivity.class);
 					startActivity(intent);
 				}
 			});
-		}else {
+		} else {
 			View contentView = viewStubBlank.inflate();
 			contentView.setVisibility(View.VISIBLE);
 			TextView tvHint = (TextView) contentView.findViewById(R.id.tv_hint);
@@ -146,9 +148,9 @@ public class MineNoteActivity extends BaseActivity {
 			}
 
 			NoteInfo.NoteData noteData = listCourse.get(position);
-			bitmapUtils.display(holder.ivPic, noteData.getThumbnailUrl());
+//			bitmapUtils.display(holder.ivPic, noteData.getThumbnailUrl());
 			holder.tvName.setText(noteData.getCourseName());
-			holder.tvNum.setText(noteData.getNoteNum() + "");
+//			holder.tvNum.setText(noteData.getNoteNum() + "");
 
 			return convertView;
 		}

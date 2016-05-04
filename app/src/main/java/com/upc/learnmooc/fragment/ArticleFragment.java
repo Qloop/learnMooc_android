@@ -120,6 +120,8 @@ public class ArticleFragment extends BaseFragment {
 	 */
 	private void getMoreDataFromServer() {
 		HttpUtils utils = new HttpUtils();
+//		RequestParams params = new RequestParams();
+//		params.addQueryStringParameter("page", 2 + "");
 		utils.send(HttpRequest.HttpMethod.GET, mMoreUrl, new RequestCallBack<String>() {
 
 			@Override
@@ -241,7 +243,7 @@ public class ArticleFragment extends BaseFragment {
 			//设置填充内容
 			ArticleList.ArticleInfo articleInfo = articleData.get(position);
 			holder.tvTitle.setText(articleInfo.getTitle());
-			holder.tvClassify.setText(articleInfo.getClassifyName());
+			holder.tvClassify.setText(articleInfo.getClassify());
 			holder.tvNum.setText(articleInfo.getNum() + "");
 			bitmapUtils.display(holder.ivPic, articleInfo.getImg());
 

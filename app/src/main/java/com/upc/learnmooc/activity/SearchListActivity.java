@@ -188,8 +188,8 @@ public class SearchListActivity extends BaseActivity {
 		HttpUtils httpUtils = new HttpUtils();
 		httpUtils.configTimeout(5000);
 		RequestParams params = new RequestParams();
-//		params.addQueryStringParameter("searchContent", text);
-		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, new RequestCallBack<String>() {
+		params.addQueryStringParameter("courseName", text);
+		httpUtils.send(HttpRequest.HttpMethod.GET, mUrl, params, new RequestCallBack<String>() {
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				parseData(responseInfo.result);
@@ -214,7 +214,9 @@ public class SearchListActivity extends BaseActivity {
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					Intent intent = new Intent();
 					intent.setClass(SearchListActivity.this, VideoActivity.class);
-					intent.putExtra("id", searchResultInfo.get(position).getCourseId());
+					Bundle bundle = new Bundle();
+					bundle.putLong("id", searchResultInfo.get(position).getCourseId());
+					intent.putExtras(bundle);
 					startActivity(intent);
 				}
 			});
