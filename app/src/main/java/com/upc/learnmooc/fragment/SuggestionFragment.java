@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.upc.learnmooc.R;
+import com.upc.learnmooc.utils.ToastUtils;
 
 /**
  * 意见反馈
@@ -65,7 +66,8 @@ public class SuggestionFragment extends BaseFragment {
 		btnSubmit.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				ToastUtils.showToastShort(mActivity,"提交成功");
+				mActivity.finish();
 			}
 		});
 		return view;

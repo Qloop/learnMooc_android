@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -19,9 +20,11 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.upc.learnmooc.R;
+import com.upc.learnmooc.global.GlobalConstants;
 import com.upc.learnmooc.utils.ToastUtils;
 import com.upc.learnmooc.utils.UserInfoCacheUtils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -160,30 +163,45 @@ public class ChangeAvatarActivity extends Activity {
 			}
 			Bitmap bm = extras.getParcelable("data");
 			finish();
-//			sendImage(img);
+			sendImage(bm);
 		}
 	}
 
-	private void sendImage(File img) {
+	private void sendImage(Bitmap img) {
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		img.compress(Bitmap.CompressFormat.PNG, 60, stream);
+		byte[] bytes = stream.toByteArray();
+		String avatar = new String(Base64.encodeToString(bytes, Base64.DEFAULT));
+		System.out.println("base64 is " + avatar);
+
+
 		HttpUtils httpUtils = new HttpUtils();
-		httpUtils.configTimeout(5000);
-		RequestParams params = new RequestParams();
-		params.addBodyParameter("avatar", img);
+		httpUtils.configTimeout(50000);
+		final RequestParams params = new RequestParams();
 //		params.addBodyParameter(img.getPath().replace("/", ""), img);
-		String mUrl = null;
+		params.addBodyParameter("userId", UserInfoCacheUtils.getLong(ChangeAvatarActivity.this, "id", 0) + "");
+		params.addBodyParameter("avatar", avatar);
+		String mUrl = GlobalConstants.SAVE_AVATAR;
 		httpUtils.send(HttpRequest.HttpMethod.POST, mUrl, params, new RequestCallBack<String>() {
 			@Override
-			public void onSuccess(ResponseInfo<String> responseInfo) {//成功返回success
+			public void onSuccess(ResponseInfo<String> responseInfo) {//成功返回  头像url
 				ToastUtils.showToastLong(ChangeAvatarActivity.this, "修改成功 ^_^");
-				//上传成功后 更新本地缓存
-				UserInfoCacheUtils.setString(ChangeAvatarActivity.this, "avatar", responseInfo.result);
+//				ToastUtils.showToastLong(ChangeAvatarActivity.this, responseInfo.result);
+				if(responseInfo.result.equals("failed")){
+
+				}else {
+					//上传成功后 更新本地缓存
+					UserInfoCacheUtils.setString(ChangeAvatarActivity.this, "avatar", responseInfo.result);
+				}
+
 				finish();
 			}
 
 			@Override
 			public void onFailure(HttpException e, String s) {//失败返回failed
 				e.printStackTrace();
-				ToastUtils.showToastLong(ChangeAvatarActivity.this, "修改出错 T.T");
+//				ToastUtils.showToastLong(ChangeAvatarActivity.this, "修改出错 T.T");
+				ToastUtils.showToastLong(ChangeAvatarActivity.this, s);
 				finish();
 			}
 		});

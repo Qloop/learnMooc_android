@@ -59,7 +59,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:src="@drawable/defaultimage"/>
+            android:src="@drawable/default_avatar"/>
 
         <EditText
             android:id="@+id/et_login_email"

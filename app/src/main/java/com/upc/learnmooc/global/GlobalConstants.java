@@ -63,5 +63,7 @@ public class GlobalConstants {
 
 	public final static String GET_RANK_LIST = BASE_URL + "/rank";  //排位
 
+	public final static String SAVE_AVATAR = BASE_URL + "/save_avatar";  //上传头像
+
 }
 
