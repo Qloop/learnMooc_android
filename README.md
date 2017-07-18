@@ -9,4 +9,7 @@
 [漫步的博客](http://blog.csdn.net/codenoodles?viewmode=contents)
 
 
-目前为非商业项目，完全又个人开发。项目已经完成，服务器接口暂时不方便公布，有需要学习的可以联系我，合适的时候我会传上来。
+目前为非商业项目，完全又个人开发。
+
+服务器接口： https://github.com/sky-admin/learnmooc
+ 前端呈现为目的，后台接口没什么参考意义 -、-
