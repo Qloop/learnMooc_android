@@ -13,3 +13,6 @@
 
 服务器接口： https://github.com/sky-admin/learnmooc
  前端呈现为目的，后台接口没什么参考意义 -、-
+
+## LICENSE
+[声明](https://github.com/Qloop/learnMooc_android/blob/master/LICENSE)
